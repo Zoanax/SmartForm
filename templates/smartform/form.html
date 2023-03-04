@@ -4,35 +4,35 @@
 
 {% block body %}
 
-    <div class="container  top-m">
-        <div class="row ">
+    <div class="container  top-m ">
+        <div class="row p-3">
             <div class="col-md-4 text-center">
                 <img src="https://picsum.photos/seed/picsum/200/300">
             </div>
 
 
             <div class="col-md-4">
-                <h4> ELG-FIREARMS  SMART FORM</h4>
-                <form class="row g-3">
+                <h4 class="text-center fw-bold"> ELG-FIREARMS  SMART FORM</h4>
+                <form class="row g-3 m-2" method="POST" action="">
                     <div class="col-md-6">
-                        <label for="firstName" class="form-label">First name</label>
-                        <input type="text" class="form-control" id="firstName">
+                        <label for="firstName" class="form-label fw-bold">First name</label>
+                        <input type="text" class="form-control" id="firstName" name="firstName">
                     </div>
                     <div class="col-md-6">
-                        <label for="lastName" class="form-label">Last name</label>
-                        <input type="text" class="form-control" id="lastName">
+                        <label for="lastName" class="form-label fw-bold">Last name</label>
+                        <input type="text" class="form-control" id="lastName" name="lastName">
                     </div>
                     <div class="col-12">
-                        <label for="inputEmail4" class="form-label">Email Address</label>
-                        <input type="email" class="form-control" id="inputEmail4" placeholder="Email Address">
+                        <label for="inputEmail4" class="form-label fw-bold">Email Address</label>
+                        <input type="email" class="form-control" name="emailAdress" id="inputEmail4" placeholder="Email Address">
                     </div>
 
                     <p>Richard McClintock, a Latin scholar from Hampden-Sydney College, is credited with discovering the source behind the ubiquitous filler text. In seeing a sample of lorem ipsum, his interest was piqued by consectetur—a genuine, albeit rare, Latin word.</p>
                     <div class="col-12">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="gridCheck">
-                            <label class="form-check-label" for="gridCheck">
-                                Check me out
+                            <label class="form-check-label " for="gridCheck">
+                                Check me out, to receive promotional emails and be added to our newsletter email list.
                             </label>
                         </div>
                     </div>
