@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'smart_formApp.apps.SmartFormappConfig',
     'crispy_forms',
+    'smart_emailApp.apps.SmartEmailappConfig',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -132,3 +133,11 @@ STATICFILES_DIRS = ['static']
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Email Backend
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = #sender's email-id
+# EMAIL_HOST_PASSWORD = #password associated with above email-id

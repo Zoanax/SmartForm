@@ -1,0 +1,37 @@
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from django.utils.html import strip_tag
+from django.conf import settings
+from django.core.mail import send_mail
+
+
+
+def send_it():
+    subject = 'welcome to GFG world'
+    message = f'Hi {user.username}, thank you for registering in geeksforgeeks.'
+    email_from = settings.EMAIL_HOST_USER
+    recipient_list = [user.email, ]
+    send_mail( subject, message, email_from, recipient_list )
+
+
+
+# Define email details
+subject = 'Subject of email'
+to = ['recipient1@example.com', 'recipient2@example.com']
+from_email = 'your_email@example.com'
+
+# Render HTML content from template
+html_content = render_to_string('email_template.html', {'context_variable': 'value'})
+
+# Strip HTML tags to create plain text version of email
+text_content = strip_tags(html_content)
+
+# Create EmailMessage object
+email = EmailMessage(subject, text_content, from_email, to)
+email.content_subtype = 'html' # Set content subtype to HTML
+
+# Attach HTML content to email
+email.attach_alternative(html_content, "text/html")
+
+# Send email
+email.send()

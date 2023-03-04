@@ -1,5 +1,7 @@
+
 <!DOCTYPE html>
 {% load static %}
+{% load crispy_forms_tags %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -20,20 +22,50 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     {% comment %} My CSS {% endcomment %}
     <link   rel="stylesheet"  type="text/css" href="{% static 'css/base.css' %}"/>
-
 </head>
 <body>
 
 
-    
 
-{% block body %}
+<nav class="navbar  navbar-expand-md sticky-top ">
+    <div class="container-fluid ">
 
+        <a class="navbar-brand Gio-color" href="#">
+            <i class="fa-solid fa-e"></i>LG-Firearms Smart Form & Email
+        </a>
+
+
+        <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fa-solid fa-bars text-white"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul class="navbar-nav ms-5 mb-2 mb-lg-0 ms-auto fw-bold text-black">
+
+                <li class="nav-item mx-1 text-black">
+                    <a id="sec-2"  class="nav-link light-white " aria-current="page" href="#section1"><span class="Gio-color "> 01. </span> View Scheduled Email</a>
+                </li>
+
+                <li class="nav-item mx-1">
+                    <a id="sec-3"  class="nav-link light-white" href="#section2"><span class="Gio-color "> 02. </span> Create Email </a>
+                </li>
+                <li class="nav-item mx-1">
+                    <a id="sec-3"  class="nav-link light-white" href="#section3"><span class="Gio-color "> 03. </span>Email List</a>
+                </li>
+
+                <li class="nav-item mx-2">
+                    <a id="sec-4"  class="nav-link light-white" href="#section4"><span class="Gio-color "> 04. </span>  Contact</a>
+                </li>
+
+              
+            </ul>
+        </div>
+    </div>
+</nav>
+
+{% block navbar %}
 
 
 {% endblock %}
-
-
 
 
 
