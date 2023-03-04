@@ -10,7 +10,7 @@
     </div>
 
     <div class="col-md-4">
-      <h4>ELG-FIREARMS SMART FORM</h4>
+      <h4 class="text-center fw-bold"> ELG-FIREARMS  SMART FORM</h4>
       <form method="POST" action="{% url 'user_form' %}">
         {% csrf_token %}
         {{ form.as_p }}
@@ -18,9 +18,9 @@
         <div class="mb-3">
           <div class="form-check">
             <input class="form-check-input" type="checkbox" id="gridCheck" name="gridCheck">
-            <label class="form-check-label" for="gridCheck">
-              Check me out
-            </label>
+            <label class="form-check-label " for="gridCheck">
+              Check me out, to receive promotional emails and be added to our newsletter email list.
+          </label>
           </div>
         </div>
 
