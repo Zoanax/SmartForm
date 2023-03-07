@@ -4,6 +4,24 @@ body, .navbar, .dropdown-menu{
     font-size: 13px;
 }
 
+/* My Theme colors */
+.color-orange{
+    color: orange !important;
+
+}
+.bg-orange{
+    background-color: orange !important;
+
+}
+
+
+
+
+
+
+
 .top-m{
      margin-top:15% !important;
 }
+
+
