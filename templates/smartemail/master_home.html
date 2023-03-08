@@ -1,106 +1,78 @@
 {% extends "nav.html" %}
 {% load static %}
 
+
+
+
+
+
 {% block navbar %}
-    <div class="container ">
-        <div class="row">
-            <h4 class="text-center p-3"> Smart Email </h4>
-
-            {% comment %} Stats {% endcomment %}
-            <div class="col-6">
-
-                <div class="row mb-2">
-                    <h6 class="text-center fw-bold"> Total Member and Tasks  </h6>
-
-                    <div class="col-5 bg-primary m-1 border  border-1">
-                        <h6 class="text-center m-1 fw-bold"> Emailing List Members <i class="fa-solid fa-people-group"></i></h6>
-                        <h1 class="text-white text-center">{{ members_count }}</h1>
-                    </div>
-
-                    <div class="col-5 bg-orange m-1 border  border-1">
-                        <h6 class="text-center m-1 fw-bold"> Email Task Scheduled <i class="fa-solid fa-envelope"></i> </h6>
-                        <h1 class="text-black text-center">20</h1>
-                    </div>
-                </div>
-
-
-                <div class="row mt-3">
-                    <h6 class="text-center fw-bold"> This Week so far </h6>
-                    <div class="col-5 bg-primary m-1 border  border-1">
-                        <h6 class="text-center m-1 fw-bold"> New members <i class="fa-solid fa-person-circle-plus"></i> </h6>
-                        <h1 class="text-white text-center">+ {{ last7days }}</h1>
-                    </div>
-
-                    <div class="col-5 bg-orange m-1 border  border-1">
-                        <h6 class="text-center m-1 fw-bold"> Email Task Scheduled</h6>
-                        <h1 class="text-black text-center">2</h1>
-                    </div>
+<div class="container ">
+  <div class="row">
+    <h4 class="text-center p-3"> Smart Email </h4>
 
 
 
-                </div>
+    {% comment %} Stats {% endcomment %}
+    <div class="col-6">
 
+      <div class="row mb-2">
+        <h6 class="text-center fw-bold"> Total Member and Tasks  </h6>
+        
+        <div class="col-5 bg-primary m-1 border  border-1">
+          <h6 class="text-center m-1 fw-bold"> Emailing List Members <i class="fa-solid fa-people-group"></i></h6>
+            <h1 class="text-white text-center">86</h1>
+        </div>
 
-            </div>
-
-
-            <div class="col-6">
-                {#                Upcoming nad current Events and Tasks #}
-                <div class="row">
-                    <div class="col-12 bg-success m-1">
-
-                        <h6 class="text-center fw-bold p-3"> Black-Friday Sale Email Tasked </h6>
-                        <p class="fw-bold"> Starts:<span class="text-white">  Oct.-15</span> </p>
-                        <p  class="fw-bold"> Ends:<span class="text-white">   Nov.-15</span> </p>
-
-                    </div>
-
-                </div>
-
-                 {#                Upcoming nad current Events and Tasks #}
-                <div class="row">
-                    <div class="col-12 bg-info m-1">
-
-                        <h6 class="text-center fw-bold p-3"> Black-Friday Sale Email Tasked </h6>
-                        <p class="fw-bold"> Starts:<span class="text-white">  Oct.-15</span> </p>
-                        <p  class="fw-bold"> Ends:<span class="text-white">   Nov.-15</span> </p>
-
-                    </div>
-
-                </div>
-
-                 {#                Upcoming nad current Events and Tasks #}
-                <div class="row">
-                    <div class="col-12 bg-primary m-1">
-
-                        <h6 class="text-center fw-bold p-3"> Black-Friday Sale Email Tasked </h6>
-                        <p class="fw-bold"> Starts:<span class="text-white">  Oct.-15</span> </p>
-                        <p  class="fw-bold"> Ends:<span class="text-white">   Nov.-15</span> </p>
-
-                    </div>
-
-                </div>
-
-                 {#                Upcoming nad current Events and Tasks #}
-                <div class="row">
-                    <div class="col-12 bg-warning m-1">
-
-                        <h6 class="text-center fw-bold p-3"> Black-Friday Sale Email Tasked </h6>
-                        <p class="fw-bold"> Starts:<span class="text-white">  Oct.-15</span> </p>
-                        <p  class="fw-bold"> Ends:<span class="text-white">   Nov.-15</span> </p>
-
-                    </div>
-
-                </div>
-
-
-            </div>
+        <div class="col-5 bg-orange m-1 border  border-1">
+          <h6 class="text-center m-1 fw-bold"> Email Task Scheduled <i class="fa-solid fa-envelope"></i> </h6>
+            <h1 class="text-white text-center">20</h1>
+        </div>
 
 
 
+      </div>
+
+
+      <div class="row mt-3">
+
+        <h6 class="text-center fw-bold"> This Week so far </h6>
+        <div class="col-5 bg-primary m-1 border  border-1">
+          <h6 class="text-center m-1 fw-bold"> New members <i class="fa-solid fa-person-circle-plus"></i> </h6>
+            <h1 class="text-white text-center">+5</h1>
+        </div>
+
+        <div class="col-5 bg-orange m-1 border  border-1">
+          <h6 class="text-center m-1 fw-bold"> Email Task Scheduled</h6>
+            <h1 class="text-white text-center">2</h1>
+        </div>
+
+
+
+      </div>
+      
+
+    </div>
+
+    
+    <div class="col-6">
+      <div class="row">
+        <div class="col-12 bg-success m-1"> 
+
+          <h6 class="text-center fw-bold p-3"> Black-Friday Sale Email Tasked </h6>
+          <p class="fw-bold"> Starts:<span class="text-white">  Oct.-15</span> </p>
+          <p  class="fw-bold"> Ends:<span class="text-white">   Nov.-15</span> </p>
 
         </div>
+
+      </div>
     </div>
+    
+    
+
+    
+  </div>
+</div>
 
 {% endblock %}
 
