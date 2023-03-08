@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import UserForm
+from .models import User
 
 
 def form_view(request):
@@ -10,7 +11,7 @@ def user_form(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
             return redirect('user_created')
     else:
         form = UserForm()
@@ -18,4 +19,9 @@ def user_form(request):
 
 
 def user_created(request):
-    return render(request, 'smartform/user_created.html')
+    latest_user = User.objects.latest('created_at')
+    context = {
+        'first_name': latest_user.first_name,
+        'last_name': latest_user.last_name,
+    }
+    return render(request, 'smartform/user_created.html', context=context)
