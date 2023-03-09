@@ -21,3 +21,13 @@ def home_view(request):
     }
 
     return render(request, "smartemail/master_home.html", context)
+
+def scheduled_email(request):
+    context = {
+        "email1": "",
+        "email2": "",
+
+    }
+
+
+    return render(request, "smartemail/scheduled_email.html", context)
