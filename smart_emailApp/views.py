@@ -122,7 +122,6 @@ def stop_task(request,id):
     only_scheduled_tasks = EmailTask.objects.filter(status="Scheduled")
     from django.db.models import Q
     not_scheduled_tasks = EmailTask.objects.filter(Q(status='Not Scheduled') | Q(status='Expired'))
-
     context = {
         "members_count": members_count,
         "last7days":last7days,
@@ -130,8 +129,26 @@ def stop_task(request,id):
         'only_scheduled_tasks':only_scheduled_tasks,
         'not_scheduled_tasks':not_scheduled_tasks
     }
-
     EmailTask.objects.filter(id =id).update(status="Not Scheduled")
-
-
     return render(request, 'smartemail/master_home.html', context)
+
+
+def email_view(request):
+    emails = Emails.objects.all()
+    context = {
+        "emails":emails,
+        'f_name':"John",
+        "l_name":"Smith"
+    }
+    return render(request, "smartemail/emails.html", context)
+
+def email_template_view(request,id):
+
+    email = Emails.objects.filter(id=id)
+    print(email)
+    context = {
+        "email_detail": email
+
+    }
+
+    return render(request, "email_templates/template1.html", context)
