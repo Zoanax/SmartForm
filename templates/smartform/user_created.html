@@ -1,8 +1,18 @@
 {% extends 'base.html' %}
 
 {% block body %}
-  <div class="container">
-    <h1>User created!</h1>
-    <p>The user has been created successfully.</p>
+  <div class="container top-m">
+    <div class="row p-3">
+      <div class="col-md-3">
+      </div>
+
+      <div class="col-md-6 text-center">
+        <h4 class="fw-bold">Thank you, {{ first_name }} {{ last_name }}, for visiting our store today!</h4>
+        <p>The user has been created successfully.</p>
+      </div>
+
+      <div class="col-md-3">
+      </div>
+    </div>
   </div>
 {% endblock %}

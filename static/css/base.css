@@ -1,9 +1,21 @@
 body, .navbar, .dropdown-menu{
     background-color: white !important;
     font-family: 'Roboto';
-    font-size: 13px;
+    font-size: 14px;
+}
+
+/* My Theme colors */
+.color-orange{
+    color: orange !important;
+
+}
+.bg-orange{
+    background-color: orange !important;
+
 }
 
 .top-m{
      margin-top:15% !important;
 }
+
+

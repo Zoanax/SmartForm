@@ -13,15 +13,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include
+
+from django.urls import path
 
 from smart_formApp import views
 from smart_formApp.views import user_form
 
 urlpatterns = [
-    path('', views.form_view, name="form"),
-    path('user_form/', user_form, name='user_form'),
+    #path('', views.form_view, name="form"),
+    path('', user_form, name='user_form'),
     path('user_created/', views.user_created, name='user_created'),
 
 
