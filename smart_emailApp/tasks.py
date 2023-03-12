@@ -15,7 +15,8 @@ def db_connect():
 
 def executeSelect(query):
     cursor.execute(query)
-    res = printFormat(cursor.fetchall())
+    res = cursor.fetchall()
+    printFormat(res)
     return res
 
 def close_connection():
@@ -34,7 +35,9 @@ def checkForTask():
     query =" select task_name, id from smart_emailApp_emailtask Where date_from  BETWEEN date('1004-01-01') AND date('2023-12-31') AND status='Scheduled'; "
     executeSelect(query)
 
-
+def makeEmail():
+    
+    pass
 
 
 db_connect()
