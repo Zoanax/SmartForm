@@ -1,0 +1,32 @@
+{% extends "nav.html" %}
+{% load static %}
+
+{% block navbar %}
+
+    <div class="container">
+        <div class="row">
+
+            {%  for email in emails %}
+
+                 <div class="col-md-6 mb-3">
+                    <div class="card bg-orange">
+                        <div class="card-body">
+                            <h5 class="card-title text-white fw-bolder ">{{  email.subject }}</h5>
+                            <p class="card-text text-black">{{ email.body}}</p>
+                            <p class="card-text text-black fw-bolder">{{ email.emailtype}}</p>
+                            <a href="{% url 'view_template' email.id %}" class="btn btn-primary">View Template</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+
+
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+
