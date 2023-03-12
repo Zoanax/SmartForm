@@ -10,9 +10,6 @@
     <div class="container ">
         <div class="row">
             <h4 class="text-center p-3"> Smart Email </h4>
-
-
-
             {% comment %} Stats {% endcomment %}
             <div class="col-6">
 
@@ -28,8 +25,6 @@
                         <h6 class="text-center m-1 fw-bold"> Email Task Scheduled <i class="fa-solid fa-envelope"></i> </h6>
                         <h1 class="text-white text-center">{{ numberOf_scheduled_tasks }}</h1>
                     </div>
-
-
                 </div>
 
 
@@ -46,13 +41,8 @@
                         <h1 class="text-white text-center">{{ numberOf_scheduled_tasks }}</h1>
                     </div>
 
-
-
                 </div>
-
-
             </div>
-
 
             <div class="col-6">
                 <div class="row mb-3">
@@ -67,11 +57,20 @@
                             <p  class="fw-bold"> Ends:<span class="text-white">   {{ task.date_to_sending }}</span> </p>
                             <p class="fw-bold bg-info">{{ task.status }}</p>
 
+
+                            <a class="btn btn-primary mb-3" href="{% url 'edit_task' task.id  %}"> EDIT  <i class="fa-solid fa-pen-to-square"></i></a>
+                            <form method="POST" action="{% url 'stop_task' task.id %}" class="d-inline">
+                                {% csrf_token %}
+                                <button class="btn btn-danger mb-3" type="submit"href="{% url 'stop_task' task.id %}"> STOP <i class="fa-solid fa-stop"></i></button>
+                            </form>
+
+
+
+
+
                         </div>
                     {% endfor %}
-
                 </div>
-
 
                 <div class="row mt-3">
                     <h6 class="text-center fw-bold"> Not Scheduled Task  </h6>
@@ -84,6 +83,10 @@
                             <p class="fw-bold"> Starts:<span class="text-white">  {{ task.date_from }}</span> </p>
                             <p  class="fw-bold"> Ends:<span class="text-white">   {{ task.date_to_sending }}</span> </p>
                             <p class="fw-bold bg-info">{{ task.status }}</p>
+
+                            <a class="btn btn-primary mb-3" href="{% url 'edit_task' task.id  %}"> EDIT  <i class="fa-solid fa-pen-to-square"></i></a>
+
+
                         </div>
                     {% endfor %}
                 </div>

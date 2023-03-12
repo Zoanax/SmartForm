@@ -12,7 +12,7 @@
     <form method="POST" class="">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Create">
+        <input class="btn btn-primary" type="submit"  value="{{ submit_btn }}">
     </form>
 
     </div>
