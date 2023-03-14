@@ -59,19 +59,24 @@ def create_email(request):
 def create_task(request):
     if request.method == 'POST':
         form = EmailTaskForm(request.POST, request.FILES)
+
         if form.is_valid():
-            intance = form.save(commit=False)
-            intance.status = 'Scheduled'
-            intance.sender = settings.EMAIL_HOST_USER
+            instance = form.save(commit=False)
+            instance.status = 'Scheduled'
+            instance.sender = settings.EMAIL_HOST_USER
             # if user left empty send email to all
-            if not intance.recipients:
+            if not instance.recipients:
                 members_list =[]
                 all_memebers = User.objects.all()
                 for member in all_memebers:
                     members_list.append(member.email)
-                intance.recipients = members_list
-            intance.save()
+                instance.recipients = members_list
+
+
+            instance.save()
+
             return redirect('master_home')
+
             # Process the email task here
     else:
         form = EmailTaskForm()

@@ -88,3 +88,14 @@ class EmailTask(models.Model):
 
     def __str__(self):
         return f'{self.task_name} || {self.task_occurence} || {self.status}'
+
+
+class MyJobModel(models.Model):
+    name = models.CharField(max_length=255,blank=True,null=True)
+    job_id = models.CharField(max_length=255)
+    decription =models.CharField(max_length=255,blank=True,null=True)
+
+    # Add any other fields you need to store information about the job
+
+    def __str__(self):
+        return self.name
