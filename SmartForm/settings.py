@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'smart_formApp.apps.SmartFormappConfig',
     'crispy_forms',
     'smart_emailApp.apps.SmartEmailappConfig',
+    'django_apscheduler',
+
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -87,6 +89,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        'OPTIONS': {
+            'timeout': 80,
+        },
     }
 }
 
@@ -128,7 +133,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = ['static']
 
- # = BASE_DIR / "media"
+# = BASE_DIR / "media"
 
 MEDIA_URL ="/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
