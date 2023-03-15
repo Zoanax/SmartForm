@@ -102,10 +102,13 @@ def task_one_send_email(email, task_name):
 #         print("Error occurred: ", traceback.format_exc())
 #         return False
 
+trigger=None
+run_time=None
+occurence=None
 def task_send_built_email(email_task_id, email_id, task_name, occurence, run_from, run_to):
     scheduler = BackgroundScheduler()
     scheduler.add_jobstore(DjangoJobStore(), "default")
-    trigger=""
+
     try:
         # Schedule the job to run based on the provided parameters
         if occurence == "once":
