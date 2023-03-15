@@ -62,14 +62,19 @@ def welcome_email(email, first_name, last_name):
 
 def buildEmail(email_task_id,email_id):
     print("Built Email is running")
-    email_task = EmailTask.objects.filter(id=email_task_id)
-    email_s = Emails.objects.filter(id=email_id)
+    email_task = EmailTask.objects.get(id=email_task_id)
+    email_s = Emails.objects.get(id=email_id)
 
-    # send a confirmation mail
     email_from = settings.EMAIL_HOST_USER
-    recipient_list = [email_task.recipients, ]
 
-    subject, from_email, to = email_id.subject, email_from, recipient_list
+    import ast
+    # convert email_task.recipients to a list, because the outputed data from the database is a string of emails.
+    email_list = ast.literal_eval(email_task.recipients)
+
+    recipient_list = email_list
+    print(recipient_list)
+
+    subject, from_email, to = email_s.subject, email_from, recipient_list
 
     context ={}
     template_name =""

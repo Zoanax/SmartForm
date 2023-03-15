@@ -102,12 +102,13 @@ def task_one_send_email(email, task_name):
 #         print("Error occurred: ", traceback.format_exc())
 #         return False
 
-trigger=None
-run_time=None
-occurence=None
+
 def task_send_built_email(email_task_id, email_id, task_name, occurence, run_from, run_to):
     scheduler = BackgroundScheduler()
     scheduler.add_jobstore(DjangoJobStore(), "default")
+    trigger = None
+    run_time = None
+    kwargs = {}
 
     try:
         # Schedule the job to run based on the provided parameters
@@ -116,11 +117,11 @@ def task_send_built_email(email_task_id, email_id, task_name, occurence, run_fro
             trigger = 'date'
         elif occurence == "daily":
             run_time = datetime.strptime(run_from, '%H:%M:%S')
-            trigger = 'cron',
+            trigger = 'cron'
             kwargs = {'hour': run_time.hour, 'minute': run_time.minute}
         elif occurence == "weekly":
             run_time = datetime.strptime(run_from, '%H:%M:%S')
-            trigger = 'cron',
+            trigger = 'cron'
             kwargs = {'hour': run_time.hour, 'minute': run_time.minute, 'day_of_week': run_to}
 
         job = scheduler.add_job(
@@ -148,10 +149,22 @@ def task_send_built_email(email_task_id, email_id, task_name, occurence, run_fro
         return False
 
 
+
 def check_for_task():
-    x= datetime.now()
-    now = timezone.now()
-    print(f'Now time is '+str(now))
+    from datetime import datetime
+    import pytz
+
+    # Get the current time in UTC
+    now_utc = datetime.now(pytz.utc)
+
+    # Convert UTC time to Eastern Standard Time (EST)
+    eastern = pytz.timezone('US/Eastern')
+    now = now_utc.astimezone(eastern)
+
+    # Print the EST time in a specific format
+    print(now.strftime('%Y-%m-%d %H:%M:%S %Z'))
+    print(now)
+
     from django.db.models import Q
     emailtasks = EmailTask.objects.filter(Q(status='Not Scheduled') | Q(status='Scheduled'))
 
@@ -160,13 +173,15 @@ def check_for_task():
         if (emailtask.date_from >= now) and (emailtask.status=="Not Scheduled"):
             print("HERE NOW 1")
             try:
+                #email = EmailTask.objects.filter()
                 print(emailtask)
                 task_name =emailtask.task_name
                 occurence = emailtask.task_occurence
                 run_from = emailtask.date_from
                 run_to = emailtask.date_to_sending
+                print(f"###########  Email ID of the email to send  "+str(emailtask.emailToSend))
 
-                task_send_built_email(emailtask.id, emailtask.emailToSend, task_name,occurence,run_from,run_to)
+                task_send_built_email(emailtask.id, emailtask.emailToSend.id, task_name,occurence,run_from,run_to)
                 emailtasks.update(status="Scheduled")
                 print("Changed to Scheduled")
                 return emailtask.id

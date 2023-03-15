@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 from django.shortcuts import render, redirect
 
 from SmartForm import settings
+from scheduler.send_email import buildEmail
 from smart_emailApp.forms import *
 from smart_formApp.models import User
 
@@ -10,6 +11,8 @@ from smart_formApp.models import User
 # Create your views here.
 
 def home_view(request):
+    # buildEmail(7, 6)
+
     members_count = User.objects.count()
     today = datetime.today()
     thirty_days_ago = today - timedelta(days=7)
@@ -19,7 +22,6 @@ def home_view(request):
     # all_other_task = EmailTask.objects.filter(status="Not Scheduled")
     from django.db.models import Q
     not_scheduled_tasks = EmailTask.objects.filter(Q(status='Not Scheduled') | Q(status='Expired')| Q(status='STOPPED'))
-    print(not_scheduled_tasks)
 
     context = {
         "members_count": members_count,
