@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 from django.shortcuts import render, redirect
 
 from SmartForm import settings
+from scheduler.send_email import buildEmail
 from smart_emailApp.forms import *
 from smart_formApp.models import User
 
@@ -10,6 +11,8 @@ from smart_formApp.models import User
 # Create your views here.
 
 def home_view(request):
+    # buildEmail(7, 6)
+
     members_count = User.objects.count()
     today = datetime.today()
     thirty_days_ago = today - timedelta(days=7)
@@ -18,8 +21,7 @@ def home_view(request):
     only_scheduled_tasks = EmailTask.objects.filter(status="Scheduled")
     # all_other_task = EmailTask.objects.filter(status="Not Scheduled")
     from django.db.models import Q
-    not_scheduled_tasks = EmailTask.objects.filter(Q(status='Not Scheduled') | Q(status='Expired'))
-    print(not_scheduled_tasks)
+    not_scheduled_tasks = EmailTask.objects.filter(Q(status='Not Scheduled') | Q(status='Expired')| Q(status='STOPPED'))
 
     context = {
         "members_count": members_count,
@@ -62,7 +64,7 @@ def create_task(request):
 
         if form.is_valid():
             instance = form.save(commit=False)
-            instance.status = 'Scheduled'
+            instance.status = 'Not Scheduled'
             instance.sender = settings.EMAIL_HOST_USER
             # if user left empty send email to all
             if not instance.recipients:
@@ -93,7 +95,7 @@ def edit_task(request, id):
     form = EmailTaskForm(request.POST or None, instance=task)
     if form.is_valid():
         intance = form.save(commit=False)
-        intance.status = 'Scheduled'
+        intance.status = 'Not Scheduled'
         intance.sender = settings.EMAIL_HOST_USER
 
         # if user left empty send email to all
@@ -134,7 +136,7 @@ def stop_task(request,id):
         'only_scheduled_tasks':only_scheduled_tasks,
         'not_scheduled_tasks':not_scheduled_tasks
     }
-    EmailTask.objects.filter(id =id).update(status="Not Scheduled")
+    EmailTask.objects.filter(id =id).update(status="STOPPED")
     return render(request, 'smartemail/master_home.html', context)
 
 
