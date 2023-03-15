@@ -60,7 +60,7 @@ class EmailTask(models.Model):
 
     task_status = (
         ('Scheduled', 'Scheduled'),
-        ('Running', 'Running'),
+        ('STOPPED', 'STOPPED'),
         ('Not Scheduled', 'Not Scheduled'),
         ('Expired', 'Expired'),
     )

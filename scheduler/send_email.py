@@ -61,8 +61,9 @@ def welcome_email(email, first_name, last_name):
 
 
 def buildEmail(email_task_id,email_id):
+    print("Built Email is running")
     email_task = EmailTask.objects.filter(id=email_task_id)
-    email_s = EmailTask.objects.filter(id=email_id)
+    email_s = Emails.objects.filter(id=email_id)
 
     # send a confirmation mail
     email_from = settings.EMAIL_HOST_USER

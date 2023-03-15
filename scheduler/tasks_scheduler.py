@@ -146,13 +146,16 @@ def task_send_built_email(email_task_id, email_id, task_name, occurence, run_fro
 
 
 def check_for_task():
+    x= datetime.now()
     now = timezone.now()
     print(f'Now time is '+str(now))
-    emailtasks = EmailTask.objects.filter(status="Not Scheduled")
+    from django.db.models import Q
+    emailtasks = EmailTask.objects.filter(Q(status='Not Scheduled') | Q(status='Scheduled'))
 
 
     for emailtask in emailtasks:
         if (emailtask.date_from >= now) and (emailtask.status=="Not Scheduled"):
+            print("HERE NOW 1")
             try:
                 print(emailtask)
                 task_name =emailtask.task_name
@@ -167,7 +170,8 @@ def check_for_task():
             except:
                 pass
 
-        elif emailtask.date_to_sending < now:
+        if emailtask.date_to_sending <= now:
+            print("Expired")
             emailtasks.update(status="Expired")
             print("Changed to Expired")
             return emailtask.id
