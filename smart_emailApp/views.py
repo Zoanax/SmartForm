@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from django.shortcuts import render, redirect
 
@@ -11,27 +11,42 @@ from smart_formApp.models import User
 # Create your views here.
 
 def home_view(request):
-    # buildEmail(7, 6)
+    from django.db.models import Q
+
+    # buildEmail(1, 1)
 
     members_count = User.objects.count()
     today = datetime.today()
     thirty_days_ago = today - timedelta(days=7)
     last7days = User.objects.filter(created_at__gte=thirty_days_ago).count()
     numberOf_scheduled_tasks = EmailTask.objects.filter(status="Scheduled").count()
-    only_scheduled_tasks = EmailTask.objects.filter(status="Scheduled")
+    numberNOt_scheduled_tasks = EmailTask.objects.filter(
+        Q(status='Not Scheduled') | Q(status='Expired') | Q(status='STOPPED')).count()
+    # only_scheduled_tasks = EmailTask.objects.filter(status="Scheduled")
+    only_scheduled_tasks = EmailTask.objects.filter(
+        Q(status='Scheduled'),
+        updated_at__gte=datetime.now() - timedelta(days=7)
+    ).order_by('-date_from')[:3]
+
     # all_other_task = EmailTask.objects.filter(status="Not Scheduled")
-    from django.db.models import Q
-    not_scheduled_tasks = EmailTask.objects.filter(Q(status='Not Scheduled') | Q(status='Expired')| Q(status='STOPPED'))
+
+    # not_scheduled_tasks = EmailTask.objects.filter(Q(status='Not Scheduled') | Q(status='Expired')| Q(status='STOPPED'))
+    not_scheduled_tasks = EmailTask.objects.filter(
+        Q(status='Not Scheduled') | Q(status='Expired') | Q(status='STOPPED'),
+        updated_at__gte=datetime.now() - timedelta(days=7)
+    ).order_by('-date_to_sending')[:3]
 
     context = {
         "members_count": members_count,
-        "last7days":last7days,
-        "numberOf_scheduled_tasks":numberOf_scheduled_tasks,
-        'only_scheduled_tasks':only_scheduled_tasks,
-        'not_scheduled_tasks':not_scheduled_tasks
+        "last7days": last7days,
+        "numberOf_scheduled_tasks": numberOf_scheduled_tasks,
+        "numberNOt_scheduled_tasks": numberNOt_scheduled_tasks,
+        'only_scheduled_tasks': only_scheduled_tasks,
+        'not_scheduled_tasks': not_scheduled_tasks
     }
 
     return render(request, "smartemail/master_home.html", context)
+
 
 def scheduled_email(request):
     context = {
@@ -39,6 +54,7 @@ def scheduled_email(request):
         "email2": "",
     }
     return render(request, "smartemail/scheduled_email.html", context)
+
 
 def create_email(request):
     form = CreateEmailForm(request.POST, request.FILES)
@@ -49,7 +65,7 @@ def create_email(request):
             instance.save()
             return redirect('master_home')
         else:
-            form =CreateEmailForm()
+            form = CreateEmailForm()
     context = {
         'form': form,
         'submit_btn': 'Create'
@@ -68,12 +84,11 @@ def create_task(request):
             instance.sender = settings.EMAIL_HOST_USER
             # if user left empty send email to all
             if not instance.recipients:
-                members_list =[]
+                members_list = []
                 all_memebers = User.objects.all()
                 for member in all_memebers:
                     members_list.append(member.email)
                 instance.recipients = members_list
-
 
             instance.save()
 
@@ -100,7 +115,7 @@ def edit_task(request, id):
 
         # if user left empty send email to all
         if not intance.recipients:
-            members_list =[]
+            members_list = []
             all_memebers = User.objects.all()
             for member in all_memebers:
                 members_list.append(member.email)
@@ -112,15 +127,13 @@ def edit_task(request, id):
 
     context = {
         'form': form,
-        'submit_btn':'Update'
+        'submit_btn': 'Update'
 
     }
     return render(request, 'smartemail/create.html', context)
 
 
-
-def stop_task(request,id):
-
+def stop_task(request, id):
     members_count = User.objects.count()
     today = datetime.today()
     thirty_days_ago = today - timedelta(days=7)
@@ -131,31 +144,50 @@ def stop_task(request,id):
     not_scheduled_tasks = EmailTask.objects.filter(Q(status='Not Scheduled') | Q(status='Expired'))
     context = {
         "members_count": members_count,
-        "last7days":last7days,
-        "numberOf_scheduled_tasks":numberOf_scheduled_tasks,
-        'only_scheduled_tasks':only_scheduled_tasks,
-        'not_scheduled_tasks':not_scheduled_tasks
+        "last7days": last7days,
+        "numberOf_scheduled_tasks": numberOf_scheduled_tasks,
+        'only_scheduled_tasks': only_scheduled_tasks,
+        'not_scheduled_tasks': not_scheduled_tasks
     }
-    EmailTask.objects.filter(id =id).update(status="STOPPED")
+    EmailTask.objects.filter(id=id).update(status="STOPPED")
     return render(request, 'smartemail/master_home.html', context)
 
 
 def email_view(request):
     emails = Emails.objects.all()
     context = {
-        "emails":emails,
-        'f_name':"John",
-        "l_name":"Smith"
+        "emails": emails,
+        'f_name': "John",
+        "l_name": "Smith"
     }
     return render(request, "smartemail/emails.html", context)
 
-def email_template_view(request,id):
 
-    email = Emails.objects.filter(id=id)
-    print(email)
-    context = {
-        "email_detail": email
+def email_template_view(request, id):
+    emails = Emails.objects.get(id=id)
+    print(emails)
+    context = {}
+    template_name = None
+    if emails.emailtype == "Store News":
+        context = {'receiver': "ELG-Fireamrs Member",
+                   'emails': emails}
+        template_name = "storesnews.html"
 
-    }
+    elif emails.emailtype == "Promotional":
 
-    return render(request, "email_templates/template1.html", context)
+        context = {'receiver': "ELG-Fireamrs Member",
+                   "emails": emails
+                   }
+        template_name = "onsales.html"
+
+    elif emails.emailtype == "Seasonal Sales":
+        context = {
+            'receiver': "ELG-Fireamrs Member",
+            'emails': emails,
+        }
+        template_name = "season_specials.html"
+
+    else:
+        pass
+
+    return render(request, f"email_templates/" + template_name, context)

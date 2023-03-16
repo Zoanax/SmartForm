@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Email Template</title>
+</head>
+<body>
+	<h1>Hello {{ receiver }},</h1>
+	<p>{{ body }}</p>
+
+	{% if product1_image %}
+		<img src="cid:{{ product1_image.url }}" alt="Product 1">
+	{% endif %}
+
+	{% if product2_image %}
+		<img src="{{ product2_image.url }}" alt="Product 2">
+	{% endif %}
+
+	{% if product3_image %}
+		<img src="{{ product3_image.url }}" alt="Product 3">
+	{% endif %}
+
+	{% if product4_image %}
+		<img src="{{ product4_image.url }}" alt="Product 4">
+	{% endif %}
+
+</body>
+</html>

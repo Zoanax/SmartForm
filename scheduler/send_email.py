@@ -1,3 +1,4 @@
+from django.core.files.storage import default_storage
 from django.core.mail import EmailMultiAlternatives, EmailMessage
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
@@ -58,15 +59,11 @@ def welcome_email(email, first_name, last_name):
         return False
 
 
-
-
 def buildEmail(email_task_id,email_id):
     print("Built Email is running")
     email_task = EmailTask.objects.get(id=email_task_id)
     email_s = Emails.objects.get(id=email_id)
-
     email_from = settings.EMAIL_HOST_USER
-
     import ast
     # convert email_task.recipients to a list, because the outputed data from the database is a string of emails.
     email_list = ast.literal_eval(email_task.recipients)
@@ -77,49 +74,45 @@ def buildEmail(email_task_id,email_id):
     subject, from_email, to = email_s.subject, email_from, recipient_list
 
     context ={}
+    picture_paths=[]
+
+    if email_s.product1_image:
+        picture_paths.append(email_s.product1_image.path)
+    if email_s.product2_image:
+        picture_paths.append(email_s.product2_image.path)
+    if email_s.product3_image:
+        picture_paths.append(email_s.product3_image.path)
+    if email_s.product4_image:
+        picture_paths.append(email_s.product4_image.path)
+
     template_name =""
-    product1_image = email_s.product1_image
-    product2_image = email_s.product2_image
-    product3_image = email_s.product3_image
-    product4_image = email_s.product4_image
 
-    if email_s.emailtype=="Store News":
+    if email_s.emailtype == "Store News":
         context = {'receiver': "ELG-Fireamrs Member",
-                   'body': email_s.body}
-        template_name = "storenews.html"
-
-
-    elif email_s.emailtype=="Promotional":
-
+                   'emails': email_s}
+        template_name = "storesnews.html"
+    elif email_s.emailtype == "Promotional":
         context = {'receiver': "ELG-Fireamrs Member",
-                   'body': email_s.body,
-                   'product1_image':product1_image,
-                   'product2_image':product2_image,
-                   'product3_image':product3_image,
-                   'product4_image':product4_image,
+                   "emails": email_s
                    }
-        template_name = "storenews.html"
-
-    elif email_s.emailtype=="Seasonal Sales":
-
-        context = {'receiver': "ELG-Fireamrs Member",
-                   'body': email_s.body,
-                   'product1_image': product1_image,
-                   'product2_image': product2_image,
-                   'product3_image': product3_image,
-                   'product4_image': product4_image,
-                   }
-
-        template_name = "storenews.html"
-
+        template_name = "onsales.html"
+    elif email_s.emailtype == "Seasonal Sales":
+        context = {
+            'receiver': "ELG-Fireamrs Member",
+            'emails': email_s,
+        }
+        template_name = "season_specials.html"
     else:
         pass
-
 
     message_html = render_to_string(f'email_templates/'+template_name, context)
 
     email_message = EmailMessage(subject, '', from_email, recipient_list)
     email_message.content_subtype = "html"
+    for i, picture_path in enumerate(picture_paths):
+        with default_storage.open(picture_path, 'rb') as picture_file:
+            picture_data = picture_file.read()
+        email_message.attach(f'picture_{i}.png', picture_data, 'image/png')
     email_message.body = message_html
     email_message.send()
 
