@@ -6,15 +6,33 @@
     <div class="container">
         <div class="row">
 
+            <h4 class="text-center m-3 mb-3 "> List of created emails</h4>
+
+            <div class="row">
+                <div class="col-6 m-3 p-3">
+
+
+                    <form action="{% url 'search_email' %}" method="GET" class="d-flex mx-2" role="search">
+                        {% csrf_token %}
+                        <input class="form-control me-2 w-70%" name="search-email" id ="search-email" type="search" placeholder="Search for email" aria-label="Search">
+                        <button class="btn btn-danger" type="submit" id="button-search"><i
+                                class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
             {%  for email in emails %}
 
-                 <div class="col-md-6 mb-3">
+                <div class="col-md-6 mb-3">
                     <div class="card bg-orange">
                         <div class="card-body">
                             <h5 class="card-title text-white fw-bolder ">{{  email.subject }}</h5>
                             <p class="card-text text-black">{{ email.body}}</p>
                             <p class="card-text text-black fw-bolder">{{ email.emailtype}}</p>
                             <a href="{% url 'view_template' email.id %}" class="btn btn-primary">View Template</a>
+                            <a href="#" class="btn btn-secondary">Edit</a>
+                            <a href="{% url 'delete_email' email.id %}" class="btn btn-danger">Delete</a>
                         </div>
                     </div>
                 </div>

@@ -157,8 +157,7 @@ def email_view(request):
     emails = Emails.objects.all()
     context = {
         "emails": emails,
-        'f_name': "John",
-        "l_name": "Smith"
+
     }
     return render(request, "smartemail/emails.html", context)
 
@@ -191,3 +190,33 @@ def email_template_view(request, id):
         pass
 
     return render(request, f"email_templates/" + template_name, context)
+
+
+def email_search(request):
+    search_term = request.GET.get('search-email') or ''
+    emails = Emails.objects.filter(subject__contains=search_term)
+    print(emails)
+    context = {'emails': emails}
+    return render(request, 'smartemail/emails.html', context)
+
+def edit_email(request):
+    pass
+
+def delete_email(request, id):
+    from django.contrib import messages
+    email = Emails.objects.get(id=id)
+    associated_tasks = EmailTask.objects.filter(emailToSend=email)
+
+    if request.method == 'POST' and request.POST.get('confirm_delete'):
+        email.delete()
+        associated_tasks.delete()
+        messages.success(request, 'Email and associated tasks deleted successfully.')
+        return redirect('view_emails')
+
+    context = {
+        'email': email,
+        'associated_tasks': associated_tasks,
+    }
+
+    return render(request, 'smartemail/confirm_delete.html', context)
+
