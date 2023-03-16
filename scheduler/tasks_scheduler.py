@@ -170,7 +170,7 @@ def check_for_task():
 
 
     for emailtask in emailtasks:
-        if (emailtask.date_from >= now) and (emailtask.status=="Not Scheduled"):
+        if (emailtask.status=="Not Scheduled"):
             print("HERE NOW 1")
             try:
                 #email = EmailTask.objects.filter()

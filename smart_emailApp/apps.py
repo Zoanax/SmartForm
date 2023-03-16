@@ -12,7 +12,7 @@ class SmartEmailappConfig(AppConfig):
         from scheduler import scheduler
         scheduler = BackgroundScheduler()
         scheduler.start()
-        job = scheduler.add_job(check_for_task, 'interval', seconds=15, name="Check_for_tasks")
+        job = scheduler.add_job(check_for_task, 'interval', seconds=60, name="Check_for_tasks")
         update_model(job)
 
 
