@@ -23,13 +23,14 @@
             </div>
 
             {%  for email in emails %}
-
-                <div class="col-md-6 mb-3">
-                    <div class="card bg-orange">
+                <div class="col-md-6 my-3">
+                    <div class="card  border-white shadow-lg p-3 my-3 bg-body rounded">
                         <div class="card-body">
-                            <h5 class="card-title text-white fw-bolder ">{{  email.subject }}</h5>
+                            <h5 class="mb-3">Email Subject: <span class="card-title text-black fw-bolder ">{{  email.subject }}</span></h5>
                             <p class="card-text text-black">{{ email.body}}</p>
-                            <p class="card-text text-black fw-bolder">{{ email.emailtype}}</p>
+                            <p>Email Type: <span class="card-text text-black fw-bolder">{{ email.emailtype}}</span> </p>
+                            <p>Created on: <span class="card-text text-black fw-bolder">{{ email.created_at}}</span> </p>
+                            <p>Last updated: <span class="card-text text-black fw-bolder">{{ email.updated_at}}</span> </p>
                             <a href="{% url 'view_template' email.id %}" class="btn btn-primary">View Template</a>
                             <a href="#" class="btn btn-secondary">Edit</a>
                             <a href="{% url 'delete_email' email.id %}" class="btn btn-danger">Delete</a>
@@ -37,8 +38,6 @@
                     </div>
                 </div>
             {% endfor %}
-
-
 
         </div>
     </div>
