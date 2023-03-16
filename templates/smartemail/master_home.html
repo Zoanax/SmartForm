@@ -37,8 +37,8 @@
                     </div>
 
                     <div class="col-5 bg-orange m-1 border  rounded-2">
-                        <h6 class="text-center m-1 fw-bold"> Email Task Scheduled</h6>
-                        <h1 class="text-white text-center">{{ numberOf_scheduled_tasks }}</h1>
+                        <h6 class="text-center m-1 fw-bold"> Email Task Not Scheduled</h6>
+                        <h1 class="text-white text-center">{{ numberNOt_scheduled_tasks }}</h1>
                     </div>
 
                 </div>
@@ -53,6 +53,7 @@
                             <p class="fw-bold">
                                 {{ task.task_description }}
                             </p>
+                            <p class="fw-bold"> Email type & Email Subject:  <span class="text-white">  {{ task.emailToSend }}</span></p>
                             <p class="fw-bold"> Starts:<span class="text-white">  {{ task.date_from }}</span> </p>
                             <p  class="fw-bold"> Ends:<span class="text-white">   {{ task.date_to_sending }}</span> </p>
                             <p class="fw-bold bg-info">{{ task.status }}</p>
@@ -80,6 +81,7 @@
                             <p class="fw-bold">
                                 {{ task.task_description }}
                             </p>
+                            <p class="fw-bold"> Email type & Email Subject:  <span class="text-white">  {{ task.emailToSend }}</span></p>
                             <p class="fw-bold"> Starts:<span class="text-white">  {{ task.date_from }}</span> </p>
                             <p  class="fw-bold"> Ends:<span class="text-white">   {{ task.date_to_sending }}</span> </p>
                             <p class="fw-bold bg-info">{{ task.status }}</p>

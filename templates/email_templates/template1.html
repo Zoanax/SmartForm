@@ -144,13 +144,13 @@
         <br>
         <br>
         <div class="card-container">
-            {% if email.product1_image %}
+            {% if email.product1_image%}
                 <div class="card">
-                    <img src="{{ email.product1_image.url }}" class="card-img-top" alt="...">
+                    <img class="card-img-top" src="{{ email.product1_image.url }}"  alt="{{email.product1_name}} picture"  width="500" height="600">
                     <div class="card-body">
                         <h5 class="card-title">{{ email.product1_name }}</h5>
                         <p class="card-text">{{ email.product1_description}}</p>
-                        <Button class="btn btn-primary" href="{{ email.product1_link }}" class="btn btn-primary"> Check it out</Button>
+                        <a class="btn btn-primary" href="{{ email.product1_link.url }}" class="btn btn-primary"> Check it out</a>
                     </div>
                 </div>
             {% endif %}
