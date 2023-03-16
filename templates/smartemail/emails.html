@@ -32,7 +32,7 @@
                             <p>Created on: <span class="card-text text-black fw-bolder">{{ email.created_at}}</span> </p>
                             <p>Last updated: <span class="card-text text-black fw-bolder">{{ email.updated_at}}</span> </p>
                             <a href="{% url 'view_template' email.id %}" class="btn btn-primary">View Template</a>
-                            <a href="#" class="btn btn-secondary">Edit</a>
+                            <a href="{% url 'edit_email' email.id %}" class="btn btn-secondary">Edit</a>
                             <a href="{% url 'delete_email' email.id %}" class="btn btn-danger">Delete</a>
                         </div>
                     </div>

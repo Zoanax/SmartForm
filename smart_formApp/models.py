@@ -5,7 +5,7 @@ class User(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField()
-    welcome_email = models.BooleanField(default=False)
+    email_agreements = models.BooleanField(default=True)
     subscribe_to_newsletter = models.BooleanField(default=False,blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

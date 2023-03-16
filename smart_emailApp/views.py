@@ -82,7 +82,6 @@ def create_email(request):
     }
     return render(request, 'smartemail/create.html', context)
 
-
 def create_task(request):
     if request.method == 'POST':
         form = EmailTaskForm(request.POST, request.FILES)
@@ -122,7 +121,6 @@ def create_task(request):
     }
     return render(request, 'smartemail/create.html', context)
 
-
 def edit_task(request, id):
     task = EmailTask.objects.get(id=id)
     form = EmailTaskForm(request.POST or None, instance=task)
@@ -143,13 +141,20 @@ def edit_task(request, id):
         return redirect('master_home')
         # Process the email task here
 
+    list_info = [
+        'Task name  fields are required please do not attempt to create tasks without a name',
+        'Please leave the recipient fields blank if you want to send an email to all registered members. Alternatively, you can specify the email addresses of the recipients by separating each address with a comma.',
+        'Please ensure that you have selected the correct email to send, and also ensure that the scheduled time and frequency are appropriate and make sense.',
+        'Note that you can edit and stopped these scheduled tasks at anytime',
+    ]
+
     context = {
         'form': form,
+        'list_info': list_info,
+        'what_to_create': "Create Email Task",
         'submit_btn': 'Update'
-
     }
     return render(request, 'smartemail/create.html', context)
-
 
 def stop_task(request, id):
     members_count = User.objects.count()
@@ -170,7 +175,6 @@ def stop_task(request, id):
     EmailTask.objects.filter(id=id).update(status="STOPPED")
     return render(request, 'smartemail/master_home.html', context)
 
-
 def email_view(request):
     emails = Emails.objects.all()
     context = {
@@ -178,7 +182,6 @@ def email_view(request):
 
     }
     return render(request, "smartemail/emails.html", context)
-
 
 def email_template_view(request, id):
     emails = Emails.objects.get(id=id)
@@ -209,7 +212,6 @@ def email_template_view(request, id):
 
     return render(request, f"email_templates/" + template_name, context)
 
-
 def email_search(request):
     search_term = request.GET.get('search-email') or ''
     emails = Emails.objects.filter(subject__contains=search_term)
@@ -217,7 +219,33 @@ def email_search(request):
     context = {'emails': emails}
     return render(request, 'smartemail/emails.html', context)
 
-def edit_email(request):
+def edit_email(request,id):
+    email = Emails.objects.get(id=id)
+    form = CreateEmailForm(request.POST or None, instance=email)
+    if form.is_valid():
+        intance = form.save(commit=False)
+        #intance.sender = settings.EMAIL_HOST_USER
+
+
+        intance.save()
+        return redirect('view_emails')
+    list_info = [
+        'Email subject will be used as your email subject and heading when sent!',
+        'Please note that the fields related to your products are only used when sending promotional emails or seasonal sales emails. They should not be used for store news emails, as the attachments and product links will not be included in the emails that are sent.',
+        'You may still send promotional and sales emails without adding any product information, as those fields are optional.',
+        'If you decide to provide product links, make sure that the links work',
+    ]
+
+    context = {
+        'form': form,
+        'what_to_create': "Create Email",
+        'submit_btn': 'Update',
+        'list_info': list_info,
+
+    }
+
+
+    return render(request, 'smartemail/create.html', context)
     pass
 
 def delete_email(request, id):
@@ -276,3 +304,9 @@ def delete_task(request, id):
         'back':'view_tasks',
     }
     return render(request, 'smartemail/confirm_delete.html', context)
+
+
+def membersList(resquest):
+    all_member = User.objects.all()
+    subscriber_member = User.objects.filter()
+    unsubscriber_member = User.objects.filter()

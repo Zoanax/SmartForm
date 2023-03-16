@@ -11,7 +11,7 @@ urlpatterns = [
                   path('view_emails', views.email_view, name='view_emails'),
                   path('create_email', views.create_email, name='create_email'),
                   path('delete_email/<int:id>', views.delete_email, name='delete_email'),
-                  path('edit_email/<int:id>', views.email_search, name='editemail'),
+                  path('edit_email/<int:id>', views.edit_email, name='edit_email'),
                   path('search_email', views.email_search, name='search_email'),
                   path('view_template/<int:id>', views.email_template_view, name='view_template'),
 
