@@ -6,11 +6,7 @@ from django.forms import ModelForm
 class CreateEmailForm(forms.ModelForm):
     class Meta:
         model = Emails
-        exclude =('created_at',)
-        fields = ['subject', 'body', 'emailtype', 'product1_image', 'product1_name', 'product1_description',
-                  'product1_link', 'product2_image', 'product2_name', 'product2_description', 'product2_link',
-                  'product3_image', 'product3_name', 'product3_description', 'product3_link', 'product4_image',
-                  'product4_name', 'product4_description', 'product4_link']
+        #exclude =('created_at',)
 
         labels = {
             'subject': 'Email Subject',
@@ -37,6 +33,10 @@ class CreateEmailForm(forms.ModelForm):
             "product4_description": "Product Description",
             "product4_link": "Product Link"
         }
+        fields = ['subject', 'body', 'emailtype', 'product1_image', 'product1_name', 'product1_description',
+                  'product1_link', 'product2_image', 'product2_name', 'product2_description', 'product2_link',
+                  'product3_image', 'product3_name', 'product3_description', 'product3_link', 'product4_image',
+                  'product4_name', 'product4_description', 'product4_link']
 
         widgets = {
             'subject': forms.TextInput(
