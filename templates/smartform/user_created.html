@@ -1,18 +1,65 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
 
 {% block body %}
-  <div class="container top-m">
-    <div class="row p-3">
-      <div class="col-md-3">
-      </div>
+    <style>
+        body {
+            background-image: linear-gradient(to right, white 50%, rgba(0, 0, 0, 0) 100%), url("{% static 'images/ELG-Firearms-slide1.jpg' %}");
+            background-size: cover;
+            background-position: center center;
+            transform: scaleY(-1);
+        }
 
-      <div class="col-md-6 text-center">
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            height: 100vh;
+            background-color: transparent;
+            color: black;
+            padding-left: 25%;
+        }
+
+        .content h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-align: left;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 70px;
+            width: 80px;
+            margin-right: 10px;
+        }
+
+        .content p {
+            font-size: 24px;
+            line-height: 1.5;
+            max-width: 600px;
+            text-align: left;
+        }
+    </style>
+
+
+
+    <!-- Content -->
+    <div class="content">
+
+        <h1>
+            <img src="{% static 'images/ELG_Firearms_Logo.png' %}" alt="Logo" class="logo">
+            ELG-Firearms Smart Form
+        </h1>
         <h4 class="fw-bold">Thank you, {{ first_name }} {{ last_name }}, for visiting our store today!</h4>
-        <p>The user has been created successfully.</p>
-      </div>
+        <p class="lead">A confirmation email has been sent your way thank you for joining</p>
 
-      <div class="col-md-3">
-      </div>
+
     </div>
-  </div>
+
+
+
 {% endblock %}
+
