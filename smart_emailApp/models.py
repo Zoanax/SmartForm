@@ -36,6 +36,7 @@ class Emails(models.Model):
     product4_link = models.URLField(max_length=100, null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateField(auto_now=True, null=True, blank=True)
 
     def __str__(self):
         return f'{self.emailtype} || {self.subject}'
@@ -60,6 +61,7 @@ class EmailTask(models.Model):
 
     task_status = (
         ('Scheduled', 'Scheduled'),
+        ('STOPPED', 'STOPPED'),
         ('Not Scheduled', 'Not Scheduled'),
         ('Expired', 'Expired'),
     )
@@ -86,5 +88,20 @@ class EmailTask(models.Model):
     priority = models.CharField(max_length=50, choices=priority_level, null=True, blank=True)
     error_message = models.TextField(null=True, blank=True)
 
+    updated_at = models.DateField(auto_now=True, null=True, blank=True)
+
     def __str__(self):
         return f'{self.task_name} || {self.task_occurence} || {self.status}'
+
+
+class MyJobModel(models.Model):
+    name = models.CharField(max_length=255,blank=True,null=True)
+    job_id = models.CharField(max_length=255)
+    decription =models.CharField(max_length=255,blank=True,null=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated_at = models.DateField(auto_now=True, null=True, blank=True)
+
+    # Add any other fields you need to store information about the job
+
+    def __str__(self):
+        return self.name

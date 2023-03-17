@@ -1,0 +1,31 @@
+{% extends "nav.html" %}
+{% load static %}
+
+{% block navbar %}
+    <div class="container">
+        <div class="row">
+            <div class="col-7 mx-auto text-center top-m">
+                <h1>Confirm Delete</h1>
+                <h6 class="fw-bolder m-3">Are you sure you want to delete the  "{{ object }}" and associated tasks?</h6>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <button class="btn btn-danger" type="submit" name="confirm_delete" value="1">Yes, delete</button>
+                    {% if back == "view_emails" %}
+                        <a class="btn btn-secondary" href="{% url 'view_emails' %}">Cancel</a>
+                    {% else %}
+                        <a class="btn btn-secondary" href="{% url 'view_tasks' %}">Cancel</a>
+                    {% endif %}
+
+                </form>
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+{% endblock %}
+
