@@ -8,6 +8,10 @@ urlpatterns = [
                   path('', views.home_view, name='master_home'),
                   #path('scheduled_email', views.scheduled_email, name='scheduled_email'),
 
+                  path('view_members', views.member_view, name='view_members'),
+                  path('edit_user/<int:user_id>/', views.edit_user, name='edit_user'),
+                  path('delete_user/<int:user_id>/', views.delete_user, name='delete_user'),
+
                   path('view_emails', views.email_view, name='view_emails'),
                   path('create_email', views.create_email, name='create_email'),
                   path('delete_email/<int:id>', views.delete_email, name='delete_email'),
