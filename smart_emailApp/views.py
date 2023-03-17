@@ -52,7 +52,7 @@ def home_view(request):
 def member_view(request):
     limit = 100
     users = User.objects.all()[:limit]
-    return render(request, 'member_list.html', {'users': users})
+    return render(request, 'smartemail/member_view.html', {'users': users})
 
 
 
@@ -127,7 +127,7 @@ def create_task(request):
             # if user left empty send email to all
             if not instance.recipients:
                 members_list = []
-                all_memebers = User.objects.all()
+                all_memebers = User.objects.filter(subscribe_to_newsletter=True)
                 for member in all_memebers:
                     members_list.append(member.email)
                 instance.recipients = members_list
@@ -167,7 +167,7 @@ def edit_task(request, id):
         # if user left empty send email to all
         if not intance.recipients:
             members_list = []
-            all_memebers = User.objects.all()
+            all_memebers = User.objects.filter(subscribe_to_newsletter=True)
             for member in all_memebers:
                 members_list.append(member.email)
             intance.recipients = members_list
@@ -348,7 +348,4 @@ def delete_task(request, id):
     return render(request, 'smartemail/confirm_delete.html', context)
 
 
-def membersList(resquest):
-    all_member = User.objects.all()
-    subscriber_member = User.objects.filter()
-    unsubscriber_member = User.objects.filter()
+

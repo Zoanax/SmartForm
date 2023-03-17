@@ -5,9 +5,6 @@ from .forms import UserForm
 from .models import User
 
 
-def form_view(request):
-    return render(request, "smartform/form.html")
-
 
 def user_form(request):
     if request.method == 'POST':
