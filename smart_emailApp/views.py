@@ -348,6 +348,8 @@ def delete_task(request, id):
     return render(request, 'smartemail/confirm_delete.html', context)
 
 
+
+
 # def unsubscribe(request):
 #     if request.method == 'POST':
 #         form = UserForm(request.POST)
