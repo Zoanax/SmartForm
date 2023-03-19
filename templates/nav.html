@@ -25,13 +25,20 @@
 </head>
 <body>
 
+    <style>
+        .logo {
+            height: 70px;
+            width: 80px;
+            margin-right: 10px;
+        }
+    </style>
     
 
 <nav class="navbar  navbar-expand-md sticky-top shadow p-3 mb-5 bg-body rounded">
     <div class="container-fluid ">
-
-        <a class="navbar-brand Gio-color" href="{% url 'master_home' %}">
-            <i class="fa-solid fa-e"></i>LG-Firearms Smart Form & Email
+        <img src="{% static 'images/ELG_Firearms_Logo.png' %}" alt="Logo" class="logo">
+        <a class="navbar-brand Gio-color fs-2" href="{% url 'master_home' %}">
+            ELG-Firearms Smart Form & Email
         </a>
 
 
@@ -40,6 +47,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarScroll">
             <ul class="navbar-nav ms-5 mb-2 mb-lg-0 ms-auto fw-bold text-black">
+                <li class="nav-item mx-1 text-black">
+                    <a id="sec-2"  class="nav-link light-white " aria-current="page" href="{% url 'master_home' %}"><span class="Gio-color ">  </span> Home</a>
+                </li>
 
                 <li class="nav-item mx-1 text-black">
                     <a id="sec-2"  class="nav-link light-white " aria-current="page" href="{% url 'view_emails' %}"><span class="Gio-color "> 01. </span> View Emails</a>
@@ -83,3 +93,5 @@
 
 </body>
 </html>
+
+
