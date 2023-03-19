@@ -20,7 +20,6 @@ from smart_formApp import views
 from smart_formApp.views import user_form
 
 urlpatterns = [
-    #path('', views.form_view, name="form"),
     path('', user_form, name='user_form'),
     path('user_created/', views.user_created, name='user_created'),
 
