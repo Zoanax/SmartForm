@@ -12,6 +12,7 @@ def update_model(job):
     my_job = MyJobModel(name=job.name, job_id=job.id)
     my_job.save()
     print("Task saved")
+
 def task_send_welcome_email(email, first_name, last_name, task_name):
     scheduler = BackgroundScheduler()
     scheduler.add_jobstore(DjangoJobStore(), "default")
@@ -72,35 +73,7 @@ def task_one_send_email(email, task_name):
         return False
 
 
-# def task_send_built_email(email_task_id,email_id, task_name, occurence,run_from, run_to):
-#     scheduler = BackgroundScheduler()
-#     scheduler.add_jobstore(DjangoJobStore(), "default")
-#     try:
-#         # Schedule the job to run 1 second from now
-#         run_time = datetime.now() + timedelta(seconds=1)
-#         print("Adding job to scheduler")
-#         job = scheduler.add_job(
-#             buildEmail,
-#             'date',
-#             run_date=run_time,
-#             args=[email_task_id,email_id],
-#             name=task_name,
-#             jobstore='default'
-#         )
-#
-#         if job:
-#             update_model(job)
-#             register_events(scheduler)
-#             scheduler.start()
-#             print("Task scheduled: ", job)
-#             return job
-#         else:
-#             print("Job creation failed")
-#             return False
-#
-#     except Exception as e:
-#         print("Error occurred: ", traceback.format_exc())
-#         return False
+
 
 
 def task_send_built_email(email_task_id, email_id, task_name, occurence, run_from, run_to):
@@ -171,7 +144,7 @@ def check_for_task():
 
     for emailtask in emailtasks:
         if (emailtask.status=="Not Scheduled"):
-            print("HERE NOW 1")
+
             try:
                 #email = EmailTask.objects.filter()
                 print(emailtask)

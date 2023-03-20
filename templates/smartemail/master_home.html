@@ -56,7 +56,7 @@
                             <p class="fw-bold"> Email type & Email Subject:  <span class="text-black">  {{ task.emailToSend }}</span></p>
                             <p class="fw-bold"> Starts:<span class="text-black">  {{ task.date_from }}</span> </p>
                             <p  class="fw-bold"> Ends:<span class="text-black">   {{ task.date_to_sending }}</span> </p>
-                            <div class="pb-2 fw-bold">Status: <span class="p-1 fw-bold bg-info border rounded">{{ task.status }}</span></div>
+                            <div class="pb-2 fw-bold">Status: <span class="p-1 fw-bold bg-success border rounded">{{ task.status }}</span></div>
 
 
                             <a class="btn btn-primary mb-3" href="{% url 'edit_task' task.id  %}"> EDIT  <i class="fa-solid fa-pen-to-square"></i></a>
@@ -84,7 +84,7 @@
                             <p class="fw-bold"> Email type & Email Subject:  <span class="text-black">  {{ task.emailToSend }}</span></p>
                             <p class="fw-bold"> Starts:<span class="text-black">  {{ task.date_from }}</span> </p>
                             <p  class="fw-bold"> Ends:<span class="text-black">   {{ task.date_to_sending }}</span> </p>
-                            <div class="pb-2 fw-bold">Status: <span class="p-1 fw-bold bg-info border rounded">{{ task.status }}</span></div>
+                            <div class="pb-2 fw-bold">Status: <span class="p-1 fw-bold bg-secondary border rounded">{{ task.status }}</span></div>
 
                             <a class="btn btn-primary mb-3" href="{% url 'edit_task' task.id  %}"> EDIT  <i class="fa-solid fa-pen-to-square"></i></a>
 
