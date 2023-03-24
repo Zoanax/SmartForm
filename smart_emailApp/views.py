@@ -99,7 +99,7 @@ def create_email(request):
                 instance.image = image
             instance.save()
             form.save_m2m()
-            return redirect('view_emails')
+            return redirect('master_home')
     else:
         form = CreateEmailForm()
 
@@ -140,7 +140,7 @@ def create_task(request):
 
             instance.save()
 
-            return redirect('view_tasks')
+            return redirect('master_home')
 
             # Process the email task here
     else:
@@ -179,7 +179,7 @@ def edit_task(request, id):
             intance.recipients = members_list
 
         intance.save()
-        return redirect('view_tasks')
+        return redirect('master_home')
         # Process the email task here
 
     list_info = [
