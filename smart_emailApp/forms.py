@@ -48,22 +48,22 @@ class CreateEmailForm(forms.ModelForm):
             'emailtype': forms.Select(
                 attrs={'class': "form-control", }),
 
-            "product1_image": forms.FileInput(attrs={'class': 'form-control'}),
+            "product1_image": forms.FileInput(attrs={'class': 'form-control', 'type':"file"}),
             "product1_name": forms.TextInput(attrs={'class': 'form-control'}),
             "product1_description": forms.Textarea(attrs={'class': 'form-control'}),
             "product1_link": forms.URLInput(attrs={'class': 'form-control'}),
 
-            "product2_image": forms.FileInput(attrs={'class': 'form-control'}),
+            "product2_image": forms.FileInput(attrs={'class': 'form-control', 'type':"file"}),
             "product2_name": forms.TextInput(attrs={'class': 'form-control'}),
             "product2_description": forms.Textarea(attrs={'class': 'form-control'}),
             "product2_link": forms.URLInput(attrs={'class': 'form-control'}),
 
-            "product3_image": forms.FileInput(attrs={'class': 'form-control'}),
+            "product3_image": forms.FileInput(attrs={'class': 'form-control', 'type':"file"}),
             "product3_name": forms.TextInput(attrs={'class': 'form-control'}),
             "product3_description": forms.Textarea(attrs={'class': 'form-control'}),
             "product3_link": forms.URLInput(attrs={'class': 'form-control'}),
 
-            "product4_image": forms.FileInput(attrs={'class': 'form-control'}),
+            "product4_image": forms.FileInput(attrs={'class': 'form-control', 'type':"file"}),
             "product4_name": forms.TextInput(attrs={'class': 'form-control'}),
             "product4_description": forms.Textarea(attrs={'class': 'form-control'}),
             "product4_link": forms.URLInput(attrs={'class': 'form-control'}),
