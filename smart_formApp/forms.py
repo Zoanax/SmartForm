@@ -24,3 +24,5 @@ class UserForm(forms.ModelForm):
             'subscribe_to_newsletter': forms.CheckboxInput(
                 attrs={'class': 'form-check-input', 'id': 'subscribe-to-newsletter'}),
         }
+
+

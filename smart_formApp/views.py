@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
 from scheduler.tasks_scheduler import task_send_welcome_email
-from .forms import UserForm
+from .forms import *
 from .models import User
 
 
@@ -29,6 +29,8 @@ def user_form(request):
                     print("Email was not sent")
     else:
         form = UserForm()
+
+
     return render(request, 'smartform/user_form.html', {'form': form})
 
 
@@ -39,3 +41,14 @@ def user_created(request):
         'last_name': latest_user.last_name,
     }
     return render(request, 'smartform/user_created.html', context=context)
+
+
+def unsubscribe(request):
+    email = request.GET.get('user-email') or ''
+    user = User.objects.filter(email=email)
+    user.update(subscribe_to_newsletter=False)
+   # user.save()
+
+    print(email)
+    # context = {'tasks': tasks}
+    return render(request, 'smartform/unsubscribe_form.html')
