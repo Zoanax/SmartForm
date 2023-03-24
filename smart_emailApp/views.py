@@ -96,7 +96,7 @@ def create_email(request):
             # handle_uploaded_file(request.FILES["Stage_image"])
             instance = form.save(commit=False)
             instance.save()
-            return redirect('master_home')
+            return redirect('view_emails')
         else:
             form = CreateEmailForm()
     list_info = [
@@ -134,7 +134,7 @@ def create_task(request):
 
             instance.save()
 
-            return redirect('master_home')
+            return redirect('view_tasks')
 
             # Process the email task here
     else:
@@ -173,7 +173,7 @@ def edit_task(request, id):
             intance.recipients = members_list
 
         intance.save()
-        return redirect('master_home')
+        return redirect('view_tasks')
         # Process the email task here
 
     list_info = [
@@ -342,7 +342,7 @@ def delete_task(request, id):
 
     context = {
         'tasks': tasks,
-        'object': task.task_name + " Task ",
+        'object': task.task_name +  " Task ",
         'back': 'view_tasks',
     }
     return render(request, 'smartemail/confirm_delete.html', context)
