@@ -15,7 +15,8 @@ Including another URLconf
 """
 
 from django.urls import path
-
+from django.conf.urls.static import static
+from SmartForm import settings
 from smart_formApp import views
 from smart_formApp.views import user_form
 
@@ -24,4 +25,4 @@ urlpatterns = [
     path('user_created/', views.user_created, name='user_created'),
 
 
-]
+]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
