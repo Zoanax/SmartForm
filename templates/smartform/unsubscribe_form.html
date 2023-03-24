@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block body %}
+    <style>
+        body {
+            background-image: linear-gradient(to right, white 50%, rgba(0, 0, 0, 0) 100%), url("{% static 'images/ELG-Firearms-slide1.jpg' %}");
+            background-size: cover;
+            background-position: center center;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            height: 100vh;
+            background-color: transparent;
+            color: black;
+            padding-left: 25%;
+        }
+
+        .content h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-align: left;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 70px;
+            width: 80px;
+            margin-right: 10px;
+        }
+
+        .content p {
+            font-size: 24px;
+            line-height: 1.5;
+            max-width: 600px;
+            text-align: left;
+        }
+    </style>
+
+
+<div class="container">
+<!-- Content -->
+    <div class="content">
+        <h1>
+            <img src="{% static 'images/ELG_Firearms_Logo.png' %}" alt="Logo" class="logo">
+            ELG-Firearms Smart Form
+        </h1>
+        <p>By Submitting this form your email will be removed from our emailing list.</p>
+        <form method="GET" action="{% url 'user_unsubscribe' %}" class="d-flex mx-2" role="search">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Email address</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="user-email">
+              <button type="submit" class="btn btn-danger my-3">Submit <i class="fa-solid fa-bullseye"></i></button>
+
+            </div>
+        
+          </form>
+    </div>
+
+</div>
+
+
+
+
+{% endblock %}

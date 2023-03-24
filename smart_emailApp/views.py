@@ -353,25 +353,3 @@ def delete_task(request, id):
     }
     return render(request, 'smartemail/confirm_delete.html', context)
 
-# def unsubscribe(request):
-#     if request.method == 'POST':
-#         form = UserForm(request.POST)
-#         if form.is_valid():
-#             form = form.save(commit=False)
-
-#             user = User.objects.filter(email=form.email)
-#             # Check if email already exists in database
-#             if user.exists():
-
-#                 user.update(subscribe_to_newsletter=False)
-#                 form.save()
-
-#                 #return redirect('user_created')  # redirect to a different page, or display an error message
-#             else:
-#                 # If email does not exist, send the welcome email and save the user to database
-
-#                 return redirect('user_do_exist')
-
-#     else:
-#         form = UserForm()
-#     return render(request, 'smartform/user_form.html', {'form': form})
