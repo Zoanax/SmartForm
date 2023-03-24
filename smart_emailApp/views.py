@@ -93,10 +93,10 @@ def create_email(request):
     form = CreateEmailForm(request.POST, request.FILES)
     if request.method == 'POST':
         if form.is_valid():
+            # handle_uploaded_file(request.FILES["Stage_image"])
             instance = form.save(commit=False)
             instance.save()
-            print(request.FILES)
-            return redirect('view_emails')
+            return redirect('master_home')
         else:
             form = CreateEmailForm()
     list_info = [
@@ -134,7 +134,7 @@ def create_task(request):
 
             instance.save()
 
-            return redirect('view_tasks')
+            return redirect('master_home')
 
             # Process the email task here
     else:
@@ -173,7 +173,7 @@ def edit_task(request, id):
             intance.recipients = members_list
 
         intance.save()
-        return redirect('view_tasks')
+        return redirect('master_home')
         # Process the email task here
 
     list_info = [
@@ -260,7 +260,6 @@ def email_search(request):
 
 
 def edit_email(request, id):
-
     email = Emails.objects.get(id=id)
     form = CreateEmailForm(request.POST or None, instance=email)
     if form.is_valid():
@@ -268,9 +267,6 @@ def edit_email(request, id):
         # intance.sender = settings.EMAIL_HOST_USER
 
         intance.save()
-        print(request.FILES)
-        print(request.POST)
-
         return redirect('view_emails')
     list_info = [
         'Email subject will be used as your email subject and heading when sent!',
@@ -288,6 +284,7 @@ def edit_email(request, id):
     }
 
     return render(request, 'smartemail/create.html', context)
+    pass
 
 
 def delete_email(request, id):
@@ -323,7 +320,6 @@ def task_view(request):
 def task_search(request):
     search_term = request.GET.get('search-task') or ''
     tasks = EmailTask.objects.filter(task_name__contains=search_term)
-  
     print(tasks)
     context = {'tasks': tasks}
     return render(request, 'smartemail/tasks.html', context)
@@ -353,26 +349,3 @@ def delete_task(request, id):
 
 
 
-
-# def unsubscribe(request):
-#     if request.method == 'POST':
-#         form = UserForm(request.POST)
-#         if form.is_valid():
-#             form = form.save(commit=False)
-            
-#             user = User.objects.filter(email=form.email)
-#             # Check if email already exists in database
-#             if user.exists():
-
-#                 user.update(subscribe_to_newsletter=False)
-#                 form.save()
-               
-#                 #return redirect('user_created')  # redirect to a different page, or display an error message
-#             else:
-#                 # If email does not exist, send the welcome email and save the user to database
-            
-#                 return redirect('user_do_exist')
-                
-#     else:
-#         form = UserForm()
-#     return render(request, 'smartform/user_form.html', {'form': form})
