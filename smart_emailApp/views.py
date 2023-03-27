@@ -55,7 +55,6 @@ def member_view(request):
     return render(request, 'smartemail/member_view.html', {'users': users})
 
 
-
 def edit_user(request, user_id):
     user = get_object_or_404(User, id=user_id)
 
@@ -90,15 +89,20 @@ def scheduled_email(request):
 
 
 def create_email(request):
-    form = CreateEmailForm(request.POST, request.FILES)
     if request.method == 'POST':
+        form = CreateEmailForm(request.POST, request.FILES)
         if form.is_valid():
-            # handle_uploaded_file(request.FILES["Stage_image"])
             instance = form.save(commit=False)
+            # Save the product images
+            image = form.cleaned_data.get('image')
+            if image:
+                instance.image = image
             instance.save()
-            return redirect('view_emails')
-        else:
-            form = CreateEmailForm()
+            form.save_m2m()
+            return redirect('master_home')
+    else:
+        form = CreateEmailForm()
+
     list_info = [
         'Email subject will be used as your email subject and heading when sent!',
         'Please note that the fields related to your products are only used when sending promotional emails or seasonal sales emails. They should not be used for store news emails, as the attachments and product links will not be included in the emails that are sent.',
@@ -111,9 +115,11 @@ def create_email(request):
         'what_to_create': "Create Email",
         'submit_btn': 'Create',
         'list_info': list_info,
-
     }
     return render(request, 'smartemail/create.html', context)
+
+
+
 
 
 def create_task(request):
@@ -134,7 +140,7 @@ def create_task(request):
 
             instance.save()
 
-            return redirect('view_tasks')
+            return redirect('master_home')
 
             # Process the email task here
     else:
@@ -173,7 +179,7 @@ def edit_task(request, id):
             intance.recipients = members_list
 
         intance.save()
-        return redirect('view_tasks')
+        return redirect('master_home')
         # Process the email task here
 
     list_info = [
@@ -341,6 +347,7 @@ def task_view(request):
 def task_search(request):
     search_term = request.GET.get('search-task') or ''
     tasks = EmailTask.objects.filter(task_name__contains=search_term)
+
     print(tasks)
     context = {'tasks': tasks}
     return render(request, 'smartemail/tasks.html', context)
@@ -363,10 +370,8 @@ def delete_task(request, id):
 
     context = {
         'tasks': tasks,
-        'object': task.task_name +  " Task ",
+        'object': task.task_name + " Task ",
         'back': 'view_tasks',
     }
     return render(request, 'smartemail/confirm_delete.html', context)
-
-
 
