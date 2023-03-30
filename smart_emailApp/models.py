@@ -1,7 +1,6 @@
 from django.db import models
 
 
-# Create your models here.
 class Emails(models.Model):
 
     email_type = (
@@ -12,7 +11,7 @@ class Emails(models.Model):
 
     subject = models.CharField(max_length=100)
     body = models.TextField(max_length=1000)
-    emailtype = models.CharField(max_length=50, choices=email_type, null=True, blank=True)
+    emailtype = models.CharField(max_length=50, choices=email_type, null=True)
 
     # Image attachment, name and Description
     product1_image = models.ImageField(upload_to="email_imageAttachment/", null=True, blank=True, default=None)
@@ -47,9 +46,6 @@ class Emails(models.Model):
 
         # save to database
         super(Emails, self).save(*args, **kwargs)
-
-
-from django.db import models
 
 class EmailTask(models.Model):
     task_type = (
@@ -93,7 +89,6 @@ class EmailTask(models.Model):
     def __str__(self):
         return f'{self.task_name} || {self.task_occurence} || {self.status}'
 
-
 class MyJobModel(models.Model):
     name = models.CharField(max_length=255,blank=True,null=True)
     job_id = models.CharField(max_length=255)
@@ -105,3 +100,15 @@ class MyJobModel(models.Model):
 
     def __str__(self):
         return self.name
+class Link(models.Model):
+    name = models.CharField(max_length=255)
+    subject = models.CharField(max_length=255)
+    url = models.URLField()
+    class Meta:
+        unique_together = ('name', 'subject', 'url')
+    views = models.PositiveIntegerField(default=0)
+    def increment_views(self):
+        self.views += 1
+        self.save()
+    def __str__(self):
+        return f'Product name: {self.name} || {self.url} || views:  {self.views}'

@@ -1,5 +1,4 @@
 from apscheduler.schedulers.background import BackgroundScheduler
-from django.utils import timezone
 from django_apscheduler.jobstores import DjangoJobStore, register_events
 from scheduler.send_email import welcome_email, send_once_email, buildEmail
 from smart_emailApp.models import MyJobModel, EmailTask

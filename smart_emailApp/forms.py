@@ -1,6 +1,6 @@
 from smart_emailApp.models import*
 from django import forms
-from django.forms import ModelForm
+
 
 
 class CreateEmailForm(forms.ModelForm):
