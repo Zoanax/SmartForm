@@ -1,5 +1,5 @@
 from apscheduler.schedulers.background import BackgroundScheduler
-from django_apscheduler.jobstores import DjangoJobStore, register_events
+
 from scheduler.send_email import welcome_email, send_once_email, buildEmail
 from smart_emailApp.models import MyJobModel, EmailTask
 import traceback
@@ -13,11 +13,14 @@ def update_model(job):
     print("Task saved")
 
 def task_send_welcome_email(email, first_name, last_name, task_name):
+    from apscheduler.schedulers.background import BackgroundScheduler
+    from django_apscheduler.jobstores import DjangoJobStore, register_events
+
     scheduler = BackgroundScheduler()
     scheduler.add_jobstore(DjangoJobStore(), "default")
     try:
         # Schedule the job to run 1 second from now
-        run_time = datetime.now() + timedelta(seconds=1)
+        run_time = datetime.now() + timedelta(seconds=30)
         print("Adding job to scheduler")
         job = scheduler.add_job(
             welcome_email,
@@ -25,13 +28,12 @@ def task_send_welcome_email(email, first_name, last_name, task_name):
             run_date=run_time,
             args=[email, first_name, last_name],
             name=task_name,
-            jobstore='default'
         )
         if job:
             update_model(job)
             register_events(scheduler)
             scheduler.start()
-            print("Task scheduled: ", job)
+            print("Task scheduled: ", job.id)
             return job
         else:
             print("Job creation failed")
@@ -43,6 +45,9 @@ def task_send_welcome_email(email, first_name, last_name, task_name):
 
 
 def task_one_send_email(email, task_name):
+    from apscheduler.schedulers.background import BackgroundScheduler
+    from django_apscheduler.jobstores import DjangoJobStore, register_events
+
     scheduler = BackgroundScheduler()
     scheduler.add_jobstore(DjangoJobStore(), "default")
     try:
@@ -55,7 +60,7 @@ def task_one_send_email(email, task_name):
             run_date=run_time,
             args=[email],
             name=task_name,
-            jobstore='default'
+            #jobstore='default'
         )
         if job:
             update_model(job)
@@ -76,6 +81,8 @@ def task_one_send_email(email, task_name):
 
 
 def task_send_built_email(email_task_id, email_id, task_name, occurence, run_from, run_to):
+    from django_apscheduler.jobstores import DjangoJobStore, register_events
+
     scheduler = BackgroundScheduler()
     scheduler.add_jobstore(DjangoJobStore(), "default")
     trigger = None
@@ -96,7 +103,7 @@ def task_send_built_email(email_task_id, email_id, task_name, occurence, run_fro
             trigger = 'cron'
             kwargs = {'hour': run_time.hour, 'minute': run_time.minute, 'day_of_week': run_to}
 
-        job = scheduler.add_job(
+        scheduler.add_job(
             buildEmail,
             trigger,
             run_date=run_time,
@@ -106,15 +113,15 @@ def task_send_built_email(email_task_id, email_id, task_name, occurence, run_fro
             **kwargs if occurence != "once" else {}
         )
 
-        if job:
-            update_model(job)
-            register_events(scheduler)
-            scheduler.start()
-            print("Task scheduled: ", job)
-            return job
-        else:
-            print("Job creation failed")
-            return False
+    # if job:
+        #update_model(job)
+        register_events(scheduler)
+        scheduler.start()
+        print("Task scheduled: ", scheduler)
+        # return job
+    # else:
+    #     print("Job creation failed")
+    #     return False
 
     except Exception as e:
         print("Error occurred: ", traceback.format_exc())
@@ -123,6 +130,8 @@ def task_send_built_email(email_task_id, email_id, task_name, occurence, run_fro
 
 
 def check_for_task():
+    print('OK')
+
     from datetime import datetime
     import pytz
 
@@ -153,11 +162,13 @@ def check_for_task():
                 run_to = emailtask.date_to_sending
                 print(f"###########  Email ID of the email to send  "+str(emailtask.emailToSend))
 
-                task_send_built_email(emailtask.id, emailtask.emailToSend.id, task_name,occurence,run_from,run_to)
+                #task_send_built_email(emailtask.id, emailtask.emailToSend.id, task_name,occurence,run_from,run_to)
+                buildEmail(emailtask.id,emailtask.emailToSend.id)
                 emailtasks.update(status="Scheduled")
                 print("Changed to Scheduled")
                 return emailtask.id
             except:
+                print("Error in 'check_for_task'function ")
                 pass
 
         if emailtask.date_to_sending <= now:

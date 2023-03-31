@@ -35,6 +35,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django_apscheduler',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,7 +45,7 @@ INSTALLED_APPS = [
     'smart_formApp.apps.SmartFormappConfig',
     'crispy_forms',
     'smart_emailApp.apps.SmartEmailappConfig',
-    'django_apscheduler',
+
 
 ]
 

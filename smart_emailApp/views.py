@@ -14,6 +14,12 @@ from smart_formApp.models import User
 def home_view(request):
     from django.db.models import Q
 
+    from django_apscheduler.models import DjangoJob, DjangoJobExecution
+
+    # List all jobs
+    print(DjangoJob.objects.all())
+
+
     # buildEmail(1, 1)
 
     members_count = User.objects.count()
