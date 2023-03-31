@@ -177,7 +177,8 @@ li:hover {
                 <div class="card-body">
                   <h5 class="card-title">{{emails.product1_name}}</h5>
                   <p class="card-text">{{emails.product1_description}}</p>
-                  <a href="{{ emails.product1_link.url }}" class="btn btn-primary">View</a>
+{#                  <p class="card-text text-black">{{emails.product1_link}} tests</p>#}
+                  <a href="{% url 'link_clicked' link_name=emails.product1_name  link_subject=emails.subject link_url=emails.product1_link %}" class="btn btn-primary">View</a>
                 </div>
               </div>
             </div>
@@ -189,7 +190,7 @@ li:hover {
                 <div class="card-body">
                   <h5 class="card-title">{{emails.product2_name}}</h5>
                   <p class="card-text">{{emails.product2_description}}</p>
-                  <a href="{{ emails.product2_link.url }}" class="btn btn-primary">View</a>
+                  <a href="{% url 'link_clicked' link_name=emails.product2_name  link_subject=emails.subject link_url=emails.product2_link %}" class="btn btn-primary">View</a>
                 </div>
               </div>
             </div>
@@ -201,7 +202,7 @@ li:hover {
                 <div class="card-body">
                   <h5 class="card-title">{{emails.product3_name}}</h5>
                   <p class="card-text">{{emails.product3_description}}</p>
-                  <a href="{{ emails.product3_link.url }}" class="btn btn-primary">View</a>
+                  <a href="{% url 'link_clicked' link_name=emails.product3_name  link_subject=emails.subject link_url=emails.product3_link %}" class="btn btn-primary">View</a>
                 </div>
               </div>
             </div>
@@ -213,7 +214,7 @@ li:hover {
                 <div class="card-body">
                   <h5 class="card-title">{{emails.product4_name}}</h5>
                   <p class="card-text">{{emails.product4_description}}</p>
-                  <a href="{{ emails.product4_link.url }}" class="btn btn-primary">View</a>
+                  <a href="{% url 'link_clicked' link_name=emails.product4_name  link_subject=emails.subject link_url=emails.product4_link %}" class="btn btn-primary">View</a>
                 </div>
               </div>
             </div>

@@ -27,4 +27,7 @@ urlpatterns = [
                   path('view_task_detail/<int:id>', views.task_detail, name='view_task_detail'),
                   path('delete_task/<int:id>', views.delete_task, name='delete_task'),
 
+                    # count email links views
+                  path('master/link_clicked/<str:link_name>/<str:link_subject>/<path:link_url>/', views.link_clicked, name='link_clicked'),
+
               ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

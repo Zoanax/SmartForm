@@ -264,31 +264,27 @@ def email_search(request):
     context = {'emails': emails}
     return render(request, 'smartemail/emails.html', context)
 
-
 def edit_email(request, id):
     email = Emails.objects.get(id=id)
-    form = CreateEmailForm(request.POST or None, instance=email)
-    if form.is_valid():
-        intance = form.save(commit=False)
-        # intance.sender = settings.EMAIL_HOST_USER
-
-        intance.save()
-        return redirect('view_emails')
+    if request.method == 'POST':
+        form = CreateEmailForm(request.POST, request.FILES, instance=email)
+        if form.is_valid():
+            form.save()
+            return redirect('view_emails')
+    else:
+        form = CreateEmailForm(instance=email)
     list_info = [
         'Email subject will be used as your email subject and heading when sent!',
         'Please note that the fields related to your products are only used when sending promotional emails or seasonal sales emails. They should not be used for store news emails, as the attachments and product links will not be included in the emails that are sent.',
         'You may still send promotional and sales emails without adding any product information, as those fields are optional.',
         'If you decide to provide product links, make sure that the links work',
     ]
-
     context = {
         'form': form,
         'what_to_create': "Create Email",
         'submit_btn': 'Update',
         'list_info': list_info,
-
     }
-
     return render(request, 'smartemail/create.html', context)
 
 
@@ -353,3 +349,15 @@ def delete_task(request, id):
     }
     return render(request, 'smartemail/confirm_delete.html', context)
 
+
+def link_clicked(request, link_name, link_subject, link_url):
+    # Do something with the link URL, name, and subject
+    # ...
+    # Update the view count for the link
+    try:
+        link = Link.objects.get(url=link_url)
+    except Link.DoesNotExist:
+        link = Link(name=link_name, subject=link_subject, url=link_url)
+    link.increment_views()
+    link.save()
+    return redirect(link_url)
