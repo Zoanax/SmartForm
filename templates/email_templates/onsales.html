@@ -173,55 +173,78 @@ li:hover {
         <div class="row">
         {% if emails.product1_image%}
             <div class="col-sm-6">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">{{emails.product1_name}}</h5>
-                  <p class="card-text">{{emails.product1_description}}</p>
-{#                  <p class="card-text text-black">{{emails.product1_link}} tests</p>#}
-                  <a href="{% url 'link_clicked' link_name=emails.product1_name  link_subject=emails.subject link_url=emails.product1_link %}" class="btn btn-primary">View</a>
+                <div class="card">
+                    <div class="card-body">
+                        {% if emails.product1_name is not none %}
+                            <h5 class="card-title">{{ emails.product1_name }}</h5>
+                        {% endif %}
+                        {% if emails.product1_description is not none %}
+                            <p class="card-text">{{ emails.product1_description }}</p>
+                        {% endif %}
+                        {% if emails.product1_link.url is not none %}
+                            <a href="{{ emails.product1_link.url }}" class="btn btn-primary">View</a>
+                        {% endif %}
+                    </div>
                 </div>
-              </div>
             </div>
-            {% endif %}
+        {% endif %}
 
-            {% if emails.product2_image%}
+        {% if emails.product2_image is not none %}
             <div class="col-sm-6">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">{{emails.product2_name}}</h5>
-                  <p class="card-text">{{emails.product2_description}}</p>
-                  <a href="{% url 'link_clicked' link_name=emails.product2_name  link_subject=emails.subject link_url=emails.product2_link %}" class="btn btn-primary">View</a>
+                <div class="card">
+                    <div class="card-body">
+                        {% if emails.product2_name is not none %}
+                            <h5 class="card-title">{{ emails.product2_name }}</h5>
+                        {% endif %}
+                        {% if emails.product2_description is not none %}
+                            <p class="card-text">{{ emails.product2_description }}</p>
+                        {% endif %}
+                        {% if emails.product2_link.url is not none %}
+                            <a href="{{ emails.product2_link.url }}" class="btn btn-primary">View</a>
+                        {% endif %}
+                    </div>
                 </div>
-              </div>
             </div>
-            {% endif %}
+        {% endif %}
 
-            {% if emails.product3_image%}
+        {% if emails.product3_image is not none %}
             <div class="col-sm-6">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">{{emails.product3_name}}</h5>
-                  <p class="card-text">{{emails.product3_description}}</p>
-                  <a href="{% url 'link_clicked' link_name=emails.product3_name  link_subject=emails.subject link_url=emails.product3_link %}" class="btn btn-primary">View</a>
+                <div class="card">
+                    <div class="card-body">
+                        {% if emails.product3_name is not none %}
+                            <h5 class="card-title">{{ emails.product3_name }}</h5>
+                        {% endif %}
+                        {% if emails.product3_description is not none %}
+                            <p class="card-text">{{ emails.product3_description }}</p>
+                        {% endif %}
+                        {% if emails.product3_link.url is not none %}
+                            <a href="{{ emails.product3_link.url }}" class="btn btn-primary">View</a>
+                        {% endif %}
+                    </div>
                 </div>
-              </div>
             </div>
-            {% endif %}
+        {% endif %}
 
-            {% if emails.product4_image%}
+        {% if emails.product4_image is not none %}
             <div class="col-sm-6">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">{{emails.product4_name}}</h5>
-                  <p class="card-text">{{emails.product4_description}}</p>
-                  <a href="{% url 'link_clicked' link_name=emails.product4_name  link_subject=emails.subject link_url=emails.product4_link %}" class="btn btn-primary">View</a>
+                <div class="card">
+                    <div class="card-body">
+                        {% if emails.product4_name is not none %}
+                            <h5 class="card-title">{{ emails.product4_name }}</h5>
+                        {% endif %}
+                        {% if emails.product4_description is not none %}
+                            <p class="card-text">{{ emails.product4_description }}</p>
+                        {% endif %}
+                        {% if emails.product4_link.url is not none %}
+                            <a href="{{ emails.product4_link.url }}" class="btn btn-primary">View</a>
+                        {% endif %}
+                    </div>
                 </div>
-              </div>
             </div>
-            {% endif %}
+        {% endif %}
 
 
-{#            {% endfor %}#}
+{#
 
 
 
