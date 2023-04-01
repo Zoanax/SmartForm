@@ -181,9 +181,9 @@ li:hover {
                         {% if emails.product1_description is not none %}
                             <p class="card-text">{{ emails.product1_description }}</p>
                         {% endif %}
-                        {% if emails.product1_link.url is not none %}
+{#                        {% if emails.product1_link.url %}#}
                             <a href="{{ emails.product1_link }}" class="btn btn-primary">View</a>
-                        {% endif %}
+{#                        {% endif %}#}
                     </div>
                 </div>
             </div>
@@ -244,8 +244,6 @@ li:hover {
         {% endif %}
 
 
-{#
-
 
 
 
@@ -281,6 +279,45 @@ East Hartford, CT 06108-7400
 
 
 </div>
+
+
+{% if emails.product1_image or emails.product2_image or emails.product3_image or emails.product4_image %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>Email attachments</h1>
+      <hr>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-3">
+      {% if emails.product1_image %}
+        <img src="{{ emails.product1_image.url }}" alt="{{ emails.product1_name }}" class="img-thumbnail" style="width:25%; height:25%">
+
+      {% endif %}
+    </div>
+    <div class="col-sm-3">
+      {% if emails.product2_image %}
+        <img src="{{ emails.product2_image.url }}" alt="{{ emails.product2_name }}" class="img-thumbnail" style="width:25%; height:25%">
+
+      {% endif %}
+    </div>
+    <div class="col-sm-3">
+      {% if emails.product3_image %}
+        <img src="{{ emails.product3_image.url }}" alt="{{ emails.product3_name }}" class="img-thumbnail" style="width:25%; height:25%">
+
+      {% endif %}
+    </div>
+    <div class="col-sm-3">
+      {% if emails.product4_image %}
+        <img src="{{ emails.product4_image.url }}" alt="{{ emails.product4_name }}" class="img-thumbnail" style="width:25%; height:25%">
+      {% endif %}
+    </div>
+  </div>
+
+</div>
+{% endif %}
 
 
 </body>
