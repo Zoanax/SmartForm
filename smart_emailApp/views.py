@@ -15,7 +15,9 @@ from smart_emailApp.models import *
 def home_view(request):
     from django.db.models import Sum
     from django.db.models import Q
+
     from django_apscheduler.models import DjangoJob, DjangoJobExecution
+
 
     members_count = User.objects.count()
     today = datetime.today()
@@ -67,20 +69,16 @@ def edit_user(request, user_id):
         user.email_agreements = request.POST.get('email_agreements') == 'on'
         user.subscribe_to_newsletter = request.POST.get('subscribe_to_newsletter') == 'on'
         user.save()
-
         return redirect('view_members')
-
     context = {
         'user': user
     }
     return render(request, 'smartemail/edit_user.html', context)
 
-
 def delete_user(request, user_id):
     user = get_object_or_404(User, id=user_id)
     user.delete()
     return redirect('view_members')
-
 
 def scheduled_email(request):
     context = {
@@ -88,7 +86,6 @@ def scheduled_email(request):
         "email2": "",
     }
     return render(request, "smartemail/scheduled_email.html", context)
-
 
 def create_email(request):
     if request.method == 'POST':
@@ -111,7 +108,6 @@ def create_email(request):
         'You may still send promotional and sales emails without adding any product information, as those fields are optional.',
         'If you decide to provide product links, make sure that the links work',
     ]
-
     context = {
         'form': form,
         'what_to_create': "Create Email",
@@ -119,7 +115,6 @@ def create_email(request):
         'list_info': list_info,
     }
     return render(request, 'smartemail/create.html', context)
-
 
 
 
@@ -235,23 +230,23 @@ def email_template_view(request, id):
     context = {}
     template_name = None
     if emails.emailtype == "Store News":
-        context = {'receiver': "ELG-Fireamrs Member",
+        context = {'receiver': "ELG-Firearms Member",
                    'emails': emails}
-        template_name = "storesnews.html"
+        template_name = "storesnewsAttach.html"
 
     elif emails.emailtype == "Promotional":
 
-        context = {'receiver': "ELG-Fireamrs Member",
+        context = {'receiver': "ELG-Firearms Member",
                    "emails": emails
                    }
-        template_name = "onsales.html"
+        template_name = "onsalesAttach.html"
 
     elif emails.emailtype == "Seasonal Sales":
         context = {
-            'receiver': "ELG-Fireamrs Member",
+            'receiver': "ELG-Firearms Member",
             'emails': emails,
         }
-        template_name = "season_specials.html"
+        template_name = "season_specialsAttach.html"
 
     else:
         pass
