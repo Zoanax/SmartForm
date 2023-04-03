@@ -104,6 +104,9 @@ class Link(models.Model):
     name = models.CharField(max_length=255)
     subject = models.CharField(max_length=255)
     url = models.URLField()
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated_at = models.DateField(auto_now=True, null=True, blank=True)
+    
     class Meta:
         unique_together = ('name', 'subject', 'url')
     views = models.PositiveIntegerField(default=0)
@@ -111,4 +114,4 @@ class Link(models.Model):
         self.views += 1
         self.save()
     def __str__(self):
-        return f'Product name: {self.name} || {self.url} || views:  {self.views}'
+        return f'Product name: {self.name} || {self.url} || views:  {self.views} '

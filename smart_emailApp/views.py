@@ -7,18 +7,24 @@ from scheduler.send_email import buildEmail
 from smart_emailApp.forms import *
 from smart_formApp.forms import UserForm
 from smart_formApp.models import User
+from smart_emailApp.models import *
 
 
 # Create your views here.
 
 def home_view(request):
+    from django.db.models import Sum
     from django.db.models import Q
+
+    from django_apscheduler.models import DjangoJob, DjangoJobExecution
+
 
     members_count = User.objects.count()
     today = datetime.today()
-    thirty_days_ago = today - timedelta(days=7)
-    last7days = User.objects.filter(created_at__gte=thirty_days_ago).count()
+    seven_days_ago = today - timedelta(days=7)
+    last7days = User.objects.filter(created_at__gte=seven_days_ago).count()
     numberOf_scheduled_tasks = EmailTask.objects.filter(status="Scheduled").count()
+    
     numberNOt_scheduled_tasks = EmailTask.objects.filter(
         Q(status='Not Scheduled') | Q(status='Expired') | Q(status='STOPPED')).count()
     # only_scheduled_tasks = EmailTask.objects.filter(status="Scheduled")
@@ -26,14 +32,14 @@ def home_view(request):
         Q(status='Scheduled'),
         updated_at__gte=datetime.now() - timedelta(days=7)
     ).order_by('-date_from')[:3]
+    
+    this_week_views =  Link.objects.filter(created_at__gte=seven_days_ago).aggregate(Sum('views'))
 
-    # all_other_task = EmailTask.objects.filter(status="Not Scheduled")
-
-    # not_scheduled_tasks = EmailTask.objects.filter(Q(status='Not Scheduled') | Q(status='Expired')| Q(status='STOPPED'))
-    not_scheduled_tasks = EmailTask.objects.filter(
-        Q(status='Not Scheduled') | Q(status='Expired') | Q(status='STOPPED'),
-        updated_at__gte=datetime.now() - timedelta(days=7)
-    ).order_by('-date_to_sending')[:3]
+   
+    # not_scheduled_tasks = EmailTask.objects.filter(
+    #     Q(status='Not Scheduled') | Q(status='Expired') | Q(status='STOPPED'),
+    #     updated_at__gte=datetime.now() - timedelta(days=7)
+    # ).order_by('-date_to_sending')[:3]
 
     context = {
         "members_count": members_count,
@@ -41,7 +47,7 @@ def home_view(request):
         "numberOf_scheduled_tasks": numberOf_scheduled_tasks,
         "numberNOt_scheduled_tasks": numberNOt_scheduled_tasks,
         'only_scheduled_tasks': only_scheduled_tasks,
-        'not_scheduled_tasks': not_scheduled_tasks
+        'this_week_views': this_week_views['views__sum'],
     }
 
     return render(request, "smartemail/master_home.html", context)
