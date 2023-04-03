@@ -14,14 +14,6 @@ from smart_formApp.models import User
 def home_view(request):
     from django.db.models import Q
 
-    from django_apscheduler.models import DjangoJob, DjangoJobExecution
-
-    # List all jobs
-    print(DjangoJob.objects.all())
-
-
-    # buildEmail(1, 1)
-
     members_count = User.objects.count()
     today = datetime.today()
     thirty_days_ago = today - timedelta(days=7)
@@ -71,20 +63,16 @@ def edit_user(request, user_id):
         user.email_agreements = request.POST.get('email_agreements') == 'on'
         user.subscribe_to_newsletter = request.POST.get('subscribe_to_newsletter') == 'on'
         user.save()
-
         return redirect('view_members')
-
     context = {
         'user': user
     }
     return render(request, 'smartemail/edit_user.html', context)
 
-
 def delete_user(request, user_id):
     user = get_object_or_404(User, id=user_id)
     user.delete()
     return redirect('view_members')
-
 
 def scheduled_email(request):
     context = {
@@ -92,7 +80,6 @@ def scheduled_email(request):
         "email2": "",
     }
     return render(request, "smartemail/scheduled_email.html", context)
-
 
 def create_email(request):
     if request.method == 'POST':
@@ -115,7 +102,6 @@ def create_email(request):
         'You may still send promotional and sales emails without adding any product information, as those fields are optional.',
         'If you decide to provide product links, make sure that the links work',
     ]
-
     context = {
         'form': form,
         'what_to_create': "Create Email",
@@ -123,7 +109,6 @@ def create_email(request):
         'list_info': list_info,
     }
     return render(request, 'smartemail/create.html', context)
-
 
 
 
