@@ -7,6 +7,7 @@ from scheduler.send_email import buildEmail
 from smart_emailApp.forms import *
 from smart_formApp.forms import UserForm
 from smart_formApp.models import User
+from smart_emailApp.models import *
 
 
 # Create your views here.
@@ -14,6 +15,8 @@ from smart_formApp.models import User
 def home_view(request):
     from django.db.models import Sum
     from django.db.models import Q
+    from django_apscheduler.models import DjangoJob, DjangoJobExecution
+
     from django_apscheduler.models import DjangoJob, DjangoJobExecution
 
     members_count = User.objects.count()
@@ -29,6 +32,8 @@ def home_view(request):
         Q(status='Scheduled'),
         updated_at__gte=datetime.now() - timedelta(days=7)
     ).order_by('-date_from')[:3]
+
+    this_week_views = Link.objects.filter(created_at__gte=seven_days_ago).aggregate(Sum('views'))
 
     this_week_views = Link.objects.filter(created_at__gte=seven_days_ago).aggregate(Sum('views'))
 
@@ -71,10 +76,12 @@ def edit_user(request, user_id):
     }
     return render(request, 'smartemail/edit_user.html', context)
 
+
 def delete_user(request, user_id):
     user = get_object_or_404(User, id=user_id)
     user.delete()
     return redirect('view_members')
+
 
 def scheduled_email(request):
     context = {
@@ -82,6 +89,7 @@ def scheduled_email(request):
         "email2": "",
     }
     return render(request, "smartemail/scheduled_email.html", context)
+
 
 def create_email(request):
     if request.method == 'POST':
@@ -111,8 +119,6 @@ def create_email(request):
         'list_info': list_info,
     }
     return render(request, 'smartemail/create.html', context)
-
-
 
 
 def create_task(request):
@@ -256,6 +262,7 @@ def email_search(request):
     print(emails)
     context = {'emails': emails}
     return render(request, 'smartemail/emails.html', context)
+
 
 def edit_email(request, id):
     email = Emails.objects.get(id=id)
