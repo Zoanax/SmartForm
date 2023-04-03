@@ -2,7 +2,6 @@ from django.db import models
 
 
 class Emails(models.Model):
-
     email_type = (
         ('Promotional', 'Promotional'),
         ('Store News', 'Store News'),
@@ -47,6 +46,7 @@ class Emails(models.Model):
         # save to database
         super(Emails, self).save(*args, **kwargs)
 
+
 class EmailTask(models.Model):
     task_type = (
         ('Once', 'Once'),
@@ -89,10 +89,11 @@ class EmailTask(models.Model):
     def __str__(self):
         return f'{self.task_name} || {self.task_occurence} || {self.status}'
 
+
 class MyJobModel(models.Model):
-    name = models.CharField(max_length=255,blank=True,null=True)
+    name = models.CharField(max_length=255, blank=True, null=True)
     job_id = models.CharField(max_length=255)
-    decription =models.CharField(max_length=255,blank=True,null=True)
+    decription = models.CharField(max_length=255, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     updated_at = models.DateField(auto_now=True, null=True, blank=True)
 
@@ -100,6 +101,8 @@ class MyJobModel(models.Model):
 
     def __str__(self):
         return self.name
+
+
 class Link(models.Model):
     name = models.CharField(max_length=255)
     subject = models.CharField(max_length=255)
@@ -109,9 +112,12 @@ class Link(models.Model):
 
     class Meta:
         unique_together = ('name', 'subject', 'url')
+
     views = models.PositiveIntegerField(default=0)
+
     def increment_views(self):
         self.views += 1
         self.save()
+
     def __str__(self):
-        return f'Product name: {self.name} || {self.url} || views:  {self.views}'
+        return f'Product name: {self.name} || {self.url} || views:  {self.views} '
