@@ -55,6 +55,12 @@
             background-color: orange;
             border-color: orange;
         }
+<<<<<<< HEAD
+=======
+        .text-center{
+            text-align:center
+        }
+>>>>>>> ddd09abc5993b0ea4c800fcb4ab2b6dd338819c8
         
 
 * {margin: 0; padding: 0;}
@@ -162,6 +168,7 @@ li:hover {
 
 <body>
 <div class="text-body">
+<<<<<<< HEAD
     <h3><strong>Dear {{ first_name }} {{ last_name }},</strong></h3><br>
 
     <span style="text-align: center;"><span style="color:#FF8C00"><strong>{{email.subject}}</strong></span></span>
@@ -218,26 +225,121 @@ li:hover {
               </div>
             </div>
             {% endif %}
+=======
+<h3 class="text-center"><span style="color:#FF8C00" ><strong>{{emails.subject}}</strong></span></h3>
+    <h3><strong>Dear {{ receiver }},</strong></h3><br>
+
+        <p>{{ emails.body }}</p>
+
+        <div class="row">
+        {% if emails.product1_image%}
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        {% if emails.product1_name is not none %}
+                            <h5 class="card-title">{{ emails.product1_name }}</h5>
+                        {% endif %}
+                        {% if emails.product1_description is not none %}
+                            <p class="card-text">{{ emails.product1_description }}</p>
+                        {% endif %}
+                        {% if emails.product1_link.url is not none %}
+                            <a href="{{ emails.product1_link }}" class="btn btn-primary">View</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if emails.product2_image is not none %}
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        {% if emails.product2_name is not none %}
+                            <h5 class="card-title">{{ emails.product2_name }}</h5>
+                        {% endif %}
+                        {% if emails.product2_description is not none %}
+                            <p class="card-text">{{ emails.product2_description }}</p>
+                        {% endif %}
+                        {% if emails.product2_link.url is not none %}
+                            <a href="{{ emails.product2_link }}" class="btn btn-primary">View</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if emails.product3_image is not none %}
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        {% if emails.product3_name is not none %}
+                            <h5 class="card-title">{{ emails.product3_name }}</h5>
+                        {% endif %}
+                        {% if emails.product3_description is not none %}
+                            <p class="card-text">{{ emails.product3_description }}</p>
+                        {% endif %}
+                        {% if emails.product3_link.url is not none %}
+                            <a href="{{ emails.product3_link }}" class="btn btn-primary">View</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if emails.product4_image is not none %}
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        {% if emails.product4_name is not none %}
+                            <h5 class="card-title">{{ emails.product4_name }}</h5>
+                        {% endif %}
+                        {% if emails.product4_description is not none %}
+                            <p class="card-text">{{ emails.product4_description }}</p>
+                        {% endif %}
+                        {% if emails.product4_link.url is not none %}
+                            <a href="{{ emails.product4_link }}" class="btn btn-primary">View</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+
+{#
+>>>>>>> ddd09abc5993b0ea4c800fcb4ab2b6dd338819c8
 
 
 
 
 
 
+<<<<<<< HEAD
             {% endfor %}
 
+=======
+>>>>>>> ddd09abc5993b0ea4c800fcb4ab2b6dd338819c8
           </div>
         
 
 <br><br><br>
   <br>
 
+<<<<<<< HEAD
 <p class="text-center"><strong>ELG Firearms</p>
 <p class="text-center">1227 Burnside Ave. Unit 1</p>
 <p class="text-center"> East Hartford, CT 06118</p>
 <p class="text-center"> Website: www.elg-firearms.com</p>
 <p class="text-center"> Instagram: elg_campaign</p>
 <p class="text-center"> Phone: 860-263-8040</strong></p>
+=======
+
+<p class="text-center"><strong>ELG Firearms</strong></p>
+<p class="text-center"><strong>1227 Burnside Ave. Unit 1</strong></p>
+<p class="text-center"><strong>East Hartford, CT 06118</strong></p>
+<p class="text-center"><strong> Website: www.elg-firearms.com</strong></p>
+<p class="text-center"><strong> Instagram: elg_campaign</strong></p>
+<p class="text-center"><strong> Phone: 860-263-8040</strong></p>
+>>>>>>> ddd09abc5993b0ea4c800fcb4ab2b6dd338819c8
 <br><br>
 <hr class="new4">
 <br><br>
@@ -259,4 +361,8 @@ East Hartford, CT 06108-7400
 
 </body>
 
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> ddd09abc5993b0ea4c800fcb4ab2b6dd338819c8

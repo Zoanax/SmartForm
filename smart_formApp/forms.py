@@ -11,7 +11,7 @@ class UserForm(forms.ModelForm):
             'first_name': '',
             'last_name': '',
             'email': '',
-            'subscribe_to_newsletter': 'Check me out, to receive promotional emails and be added to our newsletter',
+            'subscribe_to_newsletter': 'Select to receive promotional emails and be added to our newsletter',
         }
 
         widgets = {
@@ -24,3 +24,5 @@ class UserForm(forms.ModelForm):
             'subscribe_to_newsletter': forms.CheckboxInput(
                 attrs={'class': 'form-check-input', 'id': 'subscribe-to-newsletter'}),
         }
+
+

@@ -1,0 +1,292 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style type="text/css">
+
+        .card-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+
+        .card {
+            width: 16rem;
+            margin-bottom: 0.5rem;
+        }
+
+
+        .card-body {
+            padding: .5rem;
+        }
+
+        .card-title {
+            font-size: 1.05rem;
+            font-weight: bold;
+            margin-bottom: 0.3rem;
+        }
+
+        .card-text {
+            font-size: .9rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            font-weight: 200;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            padding: 0.5rem 1rem;
+            font-size: .8rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            transition: all 0.15s ease-in-out;
+        }
+
+        .btn-primary {
+            color: #fff;
+            background-color: red;
+            border-color: orange;
+        }
+
+        .text-center {
+            text-align: center
+        }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            margin: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            width: 500px;
+        }
+
+        /* Thick red border */
+        hr .new4 {
+            border: 1px solid red;
+        }
+
+        h3 {
+            font: bold 20px/1.5 Helvetica, Verdana, sans-serif;
+        }
+
+        li img {
+            float: left;
+            margin: 0 15px 0 0;
+        }
+
+        li p {
+            font: 200 12px/1.5 Georgia, Times New Roman, serif;
+        }
+
+        li {
+            padding: 10px;
+            overflow: auto;
+        }
+
+        li:hover {
+            background: #eee;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            color: #fff;
+            background-color: red;
+            border-color: white;
+        }
+
+        .text-center {
+            text-align: center
+        }
+
+        .btn-primary:focus, .btn-primary.focus {
+            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+        }
+
+        .btn-primary.disabled, .btn-primary:disabled {
+            color: #fff;
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active,
+        .show > .btn-primary.dropdown-toggle {
+            color: #fff;
+            background-color: #0062cc;
+            border-color: #005cbf;
+        }
+
+        .btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus,
+        .show > .btn-primary.dropdown-toggle:focus {
+            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+        }
+
+
+        h1, h2, h3, h4, h5, h6 {
+            display: block;
+            margin: 0;
+            padding: 0;
+
+        }
+
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            width: 100%
+        }
+
+        .text-body {
+
+            margin: auto;
+            margin-top: 80px;
+            width: 70%;
+            padding: 10px;
+            /*@editable*/
+            color: #202020;
+            /*@editable*/
+            font-family: Helvetica;
+            /*@editable*/
+            font-size: 14px;
+            /*@editable*/
+            line-height: 150%;
+            /*@editable*/
+            text-align: left;
+        }
+    </style>
+
+
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+<div class="text-body">
+    <h3 class="text-center"><span style="color:red"><strong>SEASON'S DEALS</strong></span></h3>
+    <h3><strong>Dear {{ receiver }},</strong></h3><br>
+
+    <p>{{ emails.body }}</p>
+
+    <div class="row">
+        {% if emails.product1_image %}
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        {% if emails.product1_name is not none %}
+                            <h5 class="card-title">{{ emails.product1_name }}</h5>
+                        {% endif %}
+                        {% if emails.product1_description is not none %}
+                            <p class="card-text">{{ emails.product1_description }}</p>
+                        {% endif %}
+                        {% if emails.product1_link.url is not none %}
+                            <a href="{{ emails.product1_link.url }}" class="btn btn-primary">View</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if emails.product2_image is not none %}
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        {% if emails.product2_name is not none %}
+                            <h5 class="card-title">{{ emails.product2_name }}</h5>
+                        {% endif %}
+                        {% if emails.product2_description is not none %}
+                            <p class="card-text">{{ emails.product2_description }}</p>
+                        {% endif %}
+                        {% if emails.product2_link.url is not none %}
+                            <a href="{{ emails.product2_link.url }}" class="btn btn-primary">View</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if emails.product3_image is not none %}
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        {% if emails.product3_name is not none %}
+                            <h5 class="card-title">{{ emails.product3_name }}</h5>
+                        {% endif %}
+                        {% if emails.product3_description is not none %}
+                            <p class="card-text">{{ emails.product3_description }}</p>
+                        {% endif %}
+                        {% if emails.product3_link.url is not none %}
+                            <a href="{{ emails.product3_link.url }}" class="btn btn-primary">View</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if emails.product4_image is not none %}
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        {% if emails.product4_name is not none %}
+                            <h5 class="card-title">{{ emails.product4_name }}</h5>
+                        {% endif %}
+                        {% if emails.product4_description is not none %}
+                            <p class="card-text">{{ emails.product4_description }}</p>
+                        {% endif %}
+                        {% if emails.product4_link.url is not none %}
+                            <a href="{{ emails.product4_link.url }}" class="btn btn-primary">View</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+
+
+    </div>
+
+
+    <br><br><br>
+    <br>
+
+
+    <p class="text-center"><strong>ELG Firearms</strong></p>
+    <p class="text-center"><strong>1227 Burnside Ave. Unit 1</strong></p>
+    <p class="text-center"><strong>East Hartford, CT 06118</strong></p>
+    <p class="text-center"><strong> Website: www.elg-firearms.com</strong></p>
+    <p class="text-center"><strong> Instagram: elg_campaign</strong></p>
+    <p class="text-center"><strong> Phone: 860-263-8040</strong></p>
+    <br><br>
+    <hr class="new4">
+    <br><br>
+
+    <p class="text-center"> Copyright © 2022 ELG Firearms Service & Instruction, All rights reserved.
+        You are receiving this email because you opted in via our website.
+
+        <strong>Our mailing address is: </strong>
+        ELG Firearms Service & Instruction
+        1227 Burnside Ave
+        Elg Firearms Service & Instruction
+        East Hartford, CT 06108-7400
+    </p>
+    <br>
+
+
+</div>
+
+
+</body>
+
+</html>

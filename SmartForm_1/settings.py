@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'smart_formApp.apps.SmartFormappConfig',
     'crispy_forms',
     'smart_emailApp.apps.SmartEmailappConfig',
+    'django_apscheduler',
+
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -87,8 +89,39 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        # 'OPTIONS': {
+        #     'timeout': 80,
+        # },
     }
 }
+
+# settings.py
+# ...
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        }
+    },
+    'formatters': {
+        'verbose': {
+            'format': '%(asctime)s %(levelname)s %(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S %Z'
+        }
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    }
+}
+
+# Other settings...
+
+
 
 
 # Password validation
@@ -115,11 +148,10 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/New_York'
+USE_TZ = True
 
 USE_I18N = True
-
-USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
@@ -128,10 +160,10 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = ['static']
 
- # = BASE_DIR / "media"
+# = BASE_DIR / "media"
 
 MEDIA_URL ="/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_ROOT= os.path.join(BASE_DIR,"media/") # MEDIA_ROOT is the absolute path to the file system where Media files will be uploaded.
 
 
 # Default primary key field type

@@ -1,27 +1,9 @@
 from django.shortcuts import render, redirect
-from .forms import UserForm
+
+from scheduler.tasks_scheduler import task_send_welcome_email
+from .forms import *
 from .models import User
-from .send_email import send_it
 
-
-def form_view(request):
-    return render(request, "smartform/form.html")
-
-
-# def user_form(request):
-#     if request.method == 'POST':
-#         form = UserForm(request.POST)
-#         if form.is_valid():
-#             user = form.save(commit=False)
-#             if send_it(request,user.email,user.first_name,user.last_name):
-#                 user.welcome_email=True
-#                 user.save()
-#                 return redirect('user_created')
-#             else:
-#                 print("Email was not sent")
-#     else:
-#         form = UserForm()
-#     return render(request, 'smartform/user_form.html', {'form': form})
 
 
 def user_form(request):
@@ -32,22 +14,24 @@ def user_form(request):
 
             # Check if email already exists in database
             if User.objects.filter(email=user.email).exists():
-                send_it(request, user.email, user.first_name, user.last_name)
+                # send_it(request, user.email, user.first_name, user.last_name)
+                task_send_welcome_email(user.email, user.first_name, user.last_name, f"Welcome_email" + user.email)
                 print("Email already exists")
                 return redirect('user_created')  # redirect to a different page, or display an error message
             else:
                 # If email does not exist, send the welcome email and save the user to database
-                if send_it(request, user.email, user.first_name, user.last_name):
+                if task_send_welcome_email(user.email, user.first_name, user.last_name, f"Welcome_email" + user.email):
                     user.welcome_email = True
                     user.save()
+                    print("Email Sent views.py")
                     return redirect('user_created')
                 else:
                     print("Email was not sent")
     else:
         form = UserForm()
+
+
     return render(request, 'smartform/user_form.html', {'form': form})
-
-
 
 
 def user_created(request):
@@ -57,3 +41,14 @@ def user_created(request):
         'last_name': latest_user.last_name,
     }
     return render(request, 'smartform/user_created.html', context=context)
+
+
+def unsubscribe(request):
+    email = request.GET.get('user-email') or ''
+    user = User.objects.filter(email=email)
+    user.update(subscribe_to_newsletter=False)
+   # user.save()
+
+    print(email)
+    # context = {'tasks': tasks}
+    return render(request, 'smartform/unsubscribe_form.html')

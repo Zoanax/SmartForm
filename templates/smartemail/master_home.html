@@ -7,23 +7,23 @@
 
 
 {% block navbar %}
-    <div class="container ">
-        <div class="row">
-            <h4 class="text-center p-3"> Smart Email </h4>
+    <div class="container">
+        <div class="row text-black">
+            <h4 class="text-center p-3 lead fs-2"> Smart Email </h4>
             {% comment %} Stats {% endcomment %}
             <div class="col-6">
 
                 <div class="row mb-2">
                     <h6 class="text-center fw-bold"> Total Member and Tasks  </h6>
 
-                    <div class="col-5 bg-primary m-1 border  rounded-2">
+                    <div class="col-5 bg-light m-1 border border-primary border-2  rounded-1">
                         <h6 class="text-center m-1 fw-bold"> Emailing List Members <i class="fa-solid fa-people-group"></i></h6>
-                        <h1 class="text-white text-center">{{ members_count }}</h1>
+                        <h1 class="text-black text-center">{{ members_count }}</h1>
                     </div>
 
-                    <div class="col-5 bg-orange m-1 border  rounded-2">
+                    <div class="col-5 bg-light m-1 border border-warning border-2  rounded-1">
                         <h6 class="text-center m-1 fw-bold"> Email Task Scheduled <i class="fa-solid fa-envelope"></i> </h6>
-                        <h1 class="text-white text-center">{{ numberOf_scheduled_tasks }}</h1>
+                        <h1 class="text-black text-center">{{ numberOf_scheduled_tasks }}</h1>
                     </div>
                 </div>
 
@@ -31,14 +31,14 @@
                 <div class="row mt-3">
 
                     <h6 class="text-center fw-bold"> This Week so far </h6>
-                    <div class="col-5 bg-primary m-1 border  rounded-2">
+                    <div class="col-5 bg-light m-1 border border-primary border-2  rounded-1">
                         <h6 class="text-center m-1 fw-bold"> New members <i class="fa-solid fa-person-circle-plus"></i> </h6>
-                        <h1 class="text-white text-center">{{ last7days }}</h1>
+                        <h1 class="text-black text-center">{{ last7days }}</h1>
                     </div>
 
-                    <div class="col-5 bg-orange m-1 border  rounded-2">
-                        <h6 class="text-center m-1 fw-bold"> Email Task Scheduled</h6>
-                        <h1 class="text-white text-center">{{ numberOf_scheduled_tasks }}</h1>
+                    <div class="col-5 bg-light m-1 border border-warning border-2  rounded-1">
+                        <h6 class="text-center m-1 fw-bold"> Email Task Not Scheduled</h6>
+                        <h1 class="text-black text-center">{{ numberNOt_scheduled_tasks }}</h1>
                     </div>
 
                 </div>
@@ -48,14 +48,15 @@
                 <div class="row mb-3">
                     <h6 class="text-center fw-bold">Scheduled </h6>
                     {% for task in only_scheduled_tasks %}
-                        <div class="col-12 bg-orange m-1 border rounded-3  text-black">
+                        <div class="col-12 bg-light m-1 border border-success border-2 rounded-1 text-black ">
                             <h6 class="text-center fw-bolder p-3"> {{ task.task_name}} </h6>
                             <p class="fw-bold">
                                 {{ task.task_description }}
                             </p>
-                            <p class="fw-bold"> Starts:<span class="text-white">  {{ task.date_from }}</span> </p>
-                            <p  class="fw-bold"> Ends:<span class="text-white">   {{ task.date_to_sending }}</span> </p>
-                            <p class="fw-bold bg-info">{{ task.status }}</p>
+                            <p class="fw-bold"> Email type & Email Subject:  <span class="text-black">  {{ task.emailToSend }}</span></p>
+                            <p class="fw-bold"> Starts:<span class="text-black">  {{ task.date_from }}</span> </p>
+                            <p  class="fw-bold"> Ends:<span class="text-black">   {{ task.date_to_sending }}</span> </p>
+                            <div class="pb-2 fw-bold">Status: <span class="p-1 fw-bold bg-success border rounded">{{ task.status }}</span></div>
 
 
                             <a class="btn btn-primary mb-3" href="{% url 'edit_task' task.id  %}"> EDIT  <i class="fa-solid fa-pen-to-square"></i></a>
@@ -75,14 +76,15 @@
                 <div class="row mt-3">
                     <h6 class="text-center fw-bold"> Not Scheduled Task  </h6>
                     {% for task in not_scheduled_tasks %}
-                        <div class="col-12 bg-secondary m-1 border rounded-3 text-black ">
+                        <div class="col-12 bg-light m-1 border border-success border-2 rounded-1 text-black ">
                             <h6 class="text-center fw-bolder p-3"> {{ task.task_name}} </h6>
                             <p class="fw-bold">
                                 {{ task.task_description }}
                             </p>
-                            <p class="fw-bold"> Starts:<span class="text-white">  {{ task.date_from }}</span> </p>
-                            <p  class="fw-bold"> Ends:<span class="text-white">   {{ task.date_to_sending }}</span> </p>
-                            <p class="fw-bold bg-info">{{ task.status }}</p>
+                            <p class="fw-bold"> Email type & Email Subject:  <span class="text-black">  {{ task.emailToSend }}</span></p>
+                            <p class="fw-bold"> Starts:<span class="text-black">  {{ task.date_from }}</span> </p>
+                            <p  class="fw-bold"> Ends:<span class="text-black">   {{ task.date_to_sending }}</span> </p>
+                            <div class="pb-2 fw-bold">Status: <span class="p-1 fw-bold bg-secondary border rounded">{{ task.status }}</span></div>
 
                             <a class="btn btn-primary mb-3" href="{% url 'edit_task' task.id  %}"> EDIT  <i class="fa-solid fa-pen-to-square"></i></a>
 

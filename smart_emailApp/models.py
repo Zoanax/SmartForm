@@ -1,7 +1,6 @@
 from django.db import models
 
 
-# Create your models here.
 class Emails(models.Model):
 
     email_type = (
@@ -12,7 +11,7 @@ class Emails(models.Model):
 
     subject = models.CharField(max_length=100)
     body = models.TextField(max_length=1000)
-    emailtype = models.CharField(max_length=50, choices=email_type, null=True, blank=True)
+    emailtype = models.CharField(max_length=50, choices=email_type, null=True)
 
     # Image attachment, name and Description
     product1_image = models.ImageField(upload_to="email_imageAttachment/", null=True, blank=True, default=None)
@@ -36,6 +35,7 @@ class Emails(models.Model):
     product4_link = models.URLField(max_length=100, null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateField(auto_now=True, null=True, blank=True)
 
     def __str__(self):
         return f'{self.emailtype} || {self.subject}'
@@ -47,9 +47,6 @@ class Emails(models.Model):
         # save to database
         super(Emails, self).save(*args, **kwargs)
 
-
-from django.db import models
-
 class EmailTask(models.Model):
     task_type = (
         ('Once', 'Once'),
@@ -60,6 +57,7 @@ class EmailTask(models.Model):
 
     task_status = (
         ('Scheduled', 'Scheduled'),
+        ('STOPPED', 'STOPPED'),
         ('Not Scheduled', 'Not Scheduled'),
         ('Expired', 'Expired'),
     )
@@ -86,5 +84,31 @@ class EmailTask(models.Model):
     priority = models.CharField(max_length=50, choices=priority_level, null=True, blank=True)
     error_message = models.TextField(null=True, blank=True)
 
+    updated_at = models.DateField(auto_now=True, null=True, blank=True)
+
     def __str__(self):
         return f'{self.task_name} || {self.task_occurence} || {self.status}'
+
+class MyJobModel(models.Model):
+    name = models.CharField(max_length=255,blank=True,null=True)
+    job_id = models.CharField(max_length=255)
+    decription =models.CharField(max_length=255,blank=True,null=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated_at = models.DateField(auto_now=True, null=True, blank=True)
+
+    # Add any other fields you need to store information about the job
+
+    def __str__(self):
+        return self.name
+class Link(models.Model):
+    name = models.CharField(max_length=255)
+    subject = models.CharField(max_length=255)
+    url = models.URLField()
+    class Meta:
+        unique_together = ('name', 'subject', 'url')
+    views = models.PositiveIntegerField(default=0)
+    def increment_views(self):
+        self.views += 1
+        self.save()
+    def __str__(self):
+        return f'Product name: {self.name} || {self.url} || views:  {self.views}'
