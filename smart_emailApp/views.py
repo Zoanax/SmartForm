@@ -15,6 +15,7 @@ from smart_emailApp.models import *
 def home_view(request):
     from django.db.models import Sum
     from django.db.models import Q
+    from django_apscheduler.models import DjangoJob, DjangoJobExecution
 
     from django_apscheduler.models import DjangoJob, DjangoJobExecution
 
@@ -24,7 +25,7 @@ def home_view(request):
     seven_days_ago = today - timedelta(days=7)
     last7days = User.objects.filter(created_at__gte=seven_days_ago).count()
     numberOf_scheduled_tasks = EmailTask.objects.filter(status="Scheduled").count()
-    
+
     numberNOt_scheduled_tasks = EmailTask.objects.filter(
         Q(status='Not Scheduled') | Q(status='Expired') | Q(status='STOPPED')).count()
     # only_scheduled_tasks = EmailTask.objects.filter(status="Scheduled")
@@ -35,7 +36,10 @@ def home_view(request):
     
     this_week_views =  Link.objects.filter(created_at__gte=seven_days_ago).aggregate(Sum('views'))
 
-   
+
+    this_week_views = Link.objects.filter(created_at__gte=seven_days_ago).aggregate(Sum('views'))
+
+
     # not_scheduled_tasks = EmailTask.objects.filter(
     #     Q(status='Not Scheduled') | Q(status='Expired') | Q(status='STOPPED'),
     #     updated_at__gte=datetime.now() - timedelta(days=7)
