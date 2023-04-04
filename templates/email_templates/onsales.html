@@ -55,12 +55,9 @@
             background-color: orange;
             border-color: orange;
         }
-<<<<<<< HEAD
-=======
         .text-center{
             text-align:center
         }
->>>>>>> ddd09abc5993b0ea4c800fcb4ab2b6dd338819c8
         
 
 * {margin: 0; padding: 0;}
@@ -168,64 +165,6 @@ li:hover {
 
 <body>
 <div class="text-body">
-<<<<<<< HEAD
-    <h3><strong>Dear {{ first_name }} {{ last_name }},</strong></h3><br>
-
-    <span style="text-align: center;"><span style="color:#FF8C00"><strong>{{email.subject}}</strong></span></span>
-    <br><br>
-
-    {% for email in email_detail %}
-    <p>{{ email.body }}</p>
-
-        <div class="row">
-        {% if email.product1_image%}
-            <div class="col-sm-6">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">{{email.product1_name}}</h5>
-                  <p class="card-text">{{email.product1_description}}</p>
-                  <a href="{{ email.product1_link.url }}" class="btn btn-primary">View</a>
-                </div>
-              </div>
-            </div>
-            {% endif %}
-
-            {% if email.product2_image%}
-            <div class="col-sm-6">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">{{email.product2_name}}</h5>
-                  <p class="card-text">{{email.product2_description}}</p>
-                  <a href="{{ email.product2_link.url }}" class="btn btn-primary">View</a>
-                </div>
-              </div>
-            </div>
-            {% endif %}
-
-            {% if email.product3_image%}
-            <div class="col-sm-6">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">{{email.product3_name}}</h5>
-                  <p class="card-text">{{email.product3_description}}</p>
-                  <a href="{{ email.product3_link.url }}" class="btn btn-primary">View</a>
-                </div>
-              </div>
-            </div>
-            {% endif %}
-
-            {% if email.product4_image%}
-            <div class="col-sm-6">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">{{email.product4_name}}</h5>
-                  <p class="card-text">{{email.product4_description}}</p>
-                  <a href="{{ email.product4_link.url }}" class="btn btn-primary">View</a>
-                </div>
-              </div>
-            </div>
-            {% endif %}
-=======
 <h3 class="text-center"><span style="color:#FF8C00" ><strong>{{emails.subject}}</strong></span></h3>
     <h3><strong>Dear {{ receiver }},</strong></h3><br>
 
@@ -306,32 +245,18 @@ li:hover {
 
 
 {#
->>>>>>> ddd09abc5993b0ea4c800fcb4ab2b6dd338819c8
 
 
 
 
 
 
-<<<<<<< HEAD
-            {% endfor %}
-
-=======
->>>>>>> ddd09abc5993b0ea4c800fcb4ab2b6dd338819c8
           </div>
         
 
 <br><br><br>
   <br>
 
-<<<<<<< HEAD
-<p class="text-center"><strong>ELG Firearms</p>
-<p class="text-center">1227 Burnside Ave. Unit 1</p>
-<p class="text-center"> East Hartford, CT 06118</p>
-<p class="text-center"> Website: www.elg-firearms.com</p>
-<p class="text-center"> Instagram: elg_campaign</p>
-<p class="text-center"> Phone: 860-263-8040</strong></p>
-=======
 
 <p class="text-center"><strong>ELG Firearms</strong></p>
 <p class="text-center"><strong>1227 Burnside Ave. Unit 1</strong></p>
@@ -339,7 +264,6 @@ li:hover {
 <p class="text-center"><strong> Website: www.elg-firearms.com</strong></p>
 <p class="text-center"><strong> Instagram: elg_campaign</strong></p>
 <p class="text-center"><strong> Phone: 860-263-8040</strong></p>
->>>>>>> ddd09abc5993b0ea4c800fcb4ab2b6dd338819c8
 <br><br>
 <hr class="new4">
 <br><br>
@@ -361,8 +285,4 @@ East Hartford, CT 06108-7400
 
 </body>
 
-<<<<<<< HEAD
 </html>
-=======
-</html>
->>>>>>> ddd09abc5993b0ea4c800fcb4ab2b6dd338819c8
