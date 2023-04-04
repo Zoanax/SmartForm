@@ -1,6 +1,4 @@
-from apscheduler.schedulers.background import BackgroundScheduler
 from django.apps import AppConfig
-
 
 
 class SmartEmailappConfig(AppConfig):
@@ -8,11 +6,17 @@ class SmartEmailappConfig(AppConfig):
     name = "smart_emailApp"
 
     def ready(self):
-        from scheduler.tasks_scheduler import check_for_task, update_model
+        from apscheduler.schedulers.background import BackgroundScheduler
+        from django_apscheduler.jobstores import DjangoJobStore, register_events
+        from scheduler.tasks_scheduler import check_for_task
         scheduler = BackgroundScheduler()
-
+        scheduler.add_jobstore(DjangoJobStore(), "default")
         scheduler.add_job(check_for_task, 'interval', seconds=60, name="Check_for_tasks")
+        register_events(scheduler)
         scheduler.start()
+
+
+        #tart()
         #update_model(job)
 
 

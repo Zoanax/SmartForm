@@ -1,0 +1,51 @@
+{% extends "nav.html" %}
+{% load static %}
+
+{% block navbar %}
+
+    <div class="container">
+        <div class="row">
+
+            <h4 class="text-center m-3 mb-3 "> List of Products shared in Emails</h4>
+
+            <div class="row">
+
+
+                <div class="col-6 m-3 p-3">
+                    <form action="{% url 'search_product' %}" method="GET" class="d-flex mx-2" role="search">
+                        {% csrf_token %}
+                        <input class="form-control me-2 w-70%" name="search-product" id ="search-product" type="search" placeholder="Search for Product" aria-label="Search">
+                        <button class="btn btn-danger" type="submit" id="button-search"><i
+                                class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+        <div class ="row">
+            {% for product in products %}
+            <div class="col-4">
+                <div class="card m-3 w-70">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">{{ product.name}}</h5>
+                        <p class="card-text"><i class="fa-solid fa-envelope"></i> {{ product.subject }}</p>
+                        <p class="me-auto"><span class="fw-bold">{{ product.views }}</span> <i class="fa-solid fa-eye"></i></p>
+
+                    </div>
+                </div>
+ </div>
+
+                {% endfor %}
+
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+
+
+

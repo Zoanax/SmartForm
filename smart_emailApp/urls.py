@@ -29,5 +29,7 @@ urlpatterns = [
 
                     # count email links views
                   path('master/link_clicked/<str:link_name>/<str:link_subject>/<path:link_url>/', views.link_clicked, name='link_clicked'),
+                  path('product_stats', views.product_view, name='product_stats'),
+                  path('search_product', views.product_search, name='search_product'),
 
               ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
