@@ -88,54 +88,6 @@ def task_one_send_email(email, task_name):
 
 
 
-# def task_send_built_email(email_task_id, email_id, task_name, occurence, run_from, run_to):
-#     from apscheduler.schedulers.background import BackgroundScheduler
-#     from django_apscheduler.jobstores import register_events, DjangoJobStore
-#
-#     scheduler = BackgroundScheduler()
-#     scheduler.add_jobstore(DjangoJobStore(), "default")
-#     trigger = None
-#     run_time = None
-#     kwargs = {}
-#
-#     try:
-#         # Schedule the job to run based on the provided parameters
-#         if occurence == "once":
-#             run_time = datetime.strptime(run_from, '%Y-%m-%d %H:%M:%S')
-#             trigger = 'date'
-#         elif occurence == "daily":
-#             run_time = datetime.strptime(run_from, '%H:%M:%S')
-#             trigger = 'cron'
-#             kwargs = {'hour': run_time.hour, 'minute': run_time.minute}
-#         elif occurence == "weekly":
-#             run_time = datetime.strptime(run_from, '%H:%M:%S')
-#             trigger = 'cron'
-#             kwargs = {'hour': run_time.hour, 'minute': run_time.minute, 'day_of_week': run_to}
-#
-#         job = scheduler.add_job(
-#             buildEmail,
-#             trigger,
-#             run_date=run_time,
-#             args=[email_task_id, email_id],
-#             name=task_name,
-#             jobstore='default',
-#             **kwargs if occurence != "once" else {}
-#         )
-#
-#
-#         if job:
-#             update_model(job)
-#             register_events(scheduler)
-#             scheduler.start()
-#             print("Task scheduled: ", job)
-#             return job
-#         else:
-#             print("Job creation failed")
-#             return False
-#
-#     except Exception as e:
-#         print("Error occurred: ", traceback.format_exc())
-#         return False
 
 def task_send_built_email(email_task_id, email_id, task_name, occurence, run_from, run_to):
     from apscheduler.schedulers.background import BackgroundScheduler
