@@ -2,7 +2,7 @@ SmartForm/.env
 notes
 
 
-
+db.sqlite3
 
 # We do not need this dirt
 #/.idea

@@ -360,3 +360,21 @@ def link_clicked(request, link_name, link_subject, link_url):
     link.increment_views()
     link.save()
     return redirect(link_url)
+
+
+def product_view(request):
+    products  = Link.objects.all()
+
+    context = {
+        "products":products,
+    }
+
+    return render(request, 'smartemail/products_views.html', context)
+
+
+def product_search(request):
+    search_term = request.GET.get('search-product') or ''
+    products = Link.objects.filter(name__contains=search_term)
+
+    context = {'products': products}
+    return render(request, 'smartemail/products_views.html', context)
