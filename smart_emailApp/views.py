@@ -231,23 +231,23 @@ def email_template_view(request, id):
     context = {}
     template_name = None
     if emails.emailtype == "Store News":
-        context = {'receiver': "ELG-Fireamrs Member",
+        context = {'receiver': "ELG-Firearms Member",
                    'emails': emails}
-        template_name = "storesnews.html"
+        template_name = "storenewsAttach.html"
 
     elif emails.emailtype == "Promotional":
 
-        context = {'receiver': "ELG-Fireamrs Member",
+        context = {'receiver': "ELG-Firearms Member",
                    "emails": emails
                    }
-        template_name = "onsales.html"
+        template_name = "onsalesAttach.html"
 
     elif emails.emailtype == "Seasonal Sales":
         context = {
-            'receiver': "ELG-Fireamrs Member",
+            'receiver': "ELG-Firearms Member",
             'emails': emails,
         }
-        template_name = "season_specials.html"
+        template_name = "season_specialsAttach.html"
 
     else:
         pass
@@ -360,3 +360,21 @@ def link_clicked(request, link_name, link_subject, link_url):
     link.increment_views()
     link.save()
     return redirect(link_url)
+
+
+def product_view(request):
+    products  = Link.objects.all()
+
+    context = {
+        "products":products,
+    }
+
+    return render(request, 'smartemail/products_views.html', context)
+
+
+def product_search(request):
+    search_term = request.GET.get('search-product') or ''
+    products = Link.objects.filter(name__contains=search_term)
+
+    context = {'products': products}
+    return render(request, 'smartemail/products_views.html', context)
