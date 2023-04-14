@@ -11,7 +11,7 @@ class SmartEmailappConfig(AppConfig):
         from scheduler.tasks_scheduler import check_for_task
         scheduler = BackgroundScheduler()
         scheduler.add_jobstore(DjangoJobStore(), "default")
-        scheduler.add_job(check_for_task, 'interval', seconds=60, name="Check_for_tasks")
+        scheduler.add_job(check_for_task, 'interval', seconds=200, name="Check_for_tasks")
         register_events(scheduler)
         scheduler.start()
 
