@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'smart_formApp.apps.SmartFormappConfig',
     'crispy_forms',
     'smart_emailApp.apps.SmartEmailappConfig',
+    'smart_accountApp',
 
 
 ]
