@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta, timezone
 
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
 from SmartForm import settings
@@ -11,7 +12,7 @@ from smart_emailApp.models import *
 
 
 # Create your views here.
-
+@login_required(login_url='login')
 def home_view(request):
     from django.db.models import Sum
     from django.db.models import Q
@@ -55,7 +56,7 @@ def member_view(request):
     users = User.objects.all()[:limit]
     return render(request, 'smartemail/member_view.html', {'users': users})
 
-
+@login_required(login_url='login')
 def edit_user(request, user_id):
     user = get_object_or_404(User, id=user_id)
 
@@ -74,13 +75,13 @@ def edit_user(request, user_id):
     }
     return render(request, 'smartemail/edit_user.html', context)
 
-
+@login_required(login_url='login')
 def delete_user(request, user_id):
     user = get_object_or_404(User, id=user_id)
     user.delete()
     return redirect('view_members')
 
-
+@login_required(login_url='login')
 def scheduled_email(request):
     context = {
         "email1": "",
@@ -88,7 +89,7 @@ def scheduled_email(request):
     }
     return render(request, "smartemail/scheduled_email.html", context)
 
-
+@login_required(login_url='login')
 def create_email(request):
     if request.method == 'POST':
         form = CreateEmailForm(request.POST, request.FILES)
@@ -119,7 +120,7 @@ def create_email(request):
     }
     return render(request, 'smartemail/create.html', context)
 
-
+@login_required(login_url='login')
 def create_task(request):
     if request.method == 'POST':
         form = EmailTaskForm(request.POST, request.FILES)
@@ -159,7 +160,7 @@ def create_task(request):
     }
     return render(request, 'smartemail/create.html', context)
 
-
+@login_required(login_url='login')
 def edit_task(request, id):
     task = EmailTask.objects.get(id=id)
     form = EmailTaskForm(request.POST or None, instance=task)
@@ -195,7 +196,7 @@ def edit_task(request, id):
     }
     return render(request, 'smartemail/create.html', context)
 
-
+@login_required(login_url='login')
 def stop_task(request, id):
     members_count = User.objects.count()
     today = datetime.today()
@@ -215,7 +216,7 @@ def stop_task(request, id):
     EmailTask.objects.filter(id=id).update(status="STOPPED")
     return render(request, 'smartemail/master_home.html', context)
 
-
+@login_required(login_url='login')
 def email_view(request):
     emails = Emails.objects.all()
     context = {
@@ -224,7 +225,7 @@ def email_view(request):
     }
     return render(request, "smartemail/emails.html", context)
 
-
+@login_required(login_url='login')
 def email_template_view(request, id):
     emails = Emails.objects.get(id=id)
     print(emails)
@@ -254,7 +255,7 @@ def email_template_view(request, id):
 
     return render(request, f"email_templates/" + template_name, context)
 
-
+@login_required(login_url='login')
 def email_search(request):
     search_term = request.GET.get('search-email') or ''
     emails = Emails.objects.filter(subject__contains=search_term)
@@ -262,7 +263,7 @@ def email_search(request):
     context = {'emails': emails}
     return render(request, 'smartemail/emails.html', context)
 
-
+@login_required(login_url='login')
 def edit_email(request, id):
     email = Emails.objects.get(id=id)
     if request.method == 'POST':
@@ -286,7 +287,7 @@ def edit_email(request, id):
     }
     return render(request, 'smartemail/create.html', context)
 
-
+@login_required(login_url='login')
 def delete_email(request, id):
     from django.contrib import messages
     email = Emails.objects.get(id=id)
@@ -307,7 +308,7 @@ def delete_email(request, id):
 
     return render(request, 'smartemail/confirm_delete.html', context)
 
-
+@login_required(login_url='login')
 def task_view(request):
     tasks = EmailTask.objects.all()
     context = {
@@ -316,7 +317,7 @@ def task_view(request):
     }
     return render(request, "smartemail/tasks.html", context)
 
-
+@login_required(login_url='login')
 def task_search(request):
     search_term = request.GET.get('search-task') or ''
     tasks = EmailTask.objects.filter(task_name__contains=search_term)
@@ -325,11 +326,11 @@ def task_search(request):
     context = {'tasks': tasks}
     return render(request, 'smartemail/tasks.html', context)
 
-
+@login_required(login_url='login')
 def task_detail(request, id):
     return None
 
-
+@login_required(login_url='login')
 def delete_task(request, id):
     from django.contrib import messages
     task = EmailTask.objects.get(id=id)
@@ -348,7 +349,7 @@ def delete_task(request, id):
     }
     return render(request, 'smartemail/confirm_delete.html', context)
 
-
+@login_required(login_url='login')
 def link_clicked(request, link_name, link_subject, link_url):
     # Do something with the link URL, name, and subject
     # ...
@@ -361,7 +362,7 @@ def link_clicked(request, link_name, link_subject, link_url):
     link.save()
     return redirect(link_url)
 
-
+@login_required(login_url='login')
 def product_view(request):
     products  = Link.objects.all()
 
@@ -371,7 +372,7 @@ def product_view(request):
 
     return render(request, 'smartemail/products_views.html', context)
 
-
+@login_required(login_url='login')
 def product_search(request):
     search_term = request.GET.get('search-product') or ''
     products = Link.objects.filter(name__contains=search_term)

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{%  load static %}
+{% block body %}
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-6 mx-auto my-5">
+                <h1 class="display-1 fw-bolder m-3" id="title"> ELG-Firearms</h1>
+                {% if form.errors %}
+                    <p> {{form.messages}}</p>
+                {% endif %}
+
+                <form  action= "{% url 'register' %}" method="POST">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+
+                        <label class="form-label" for="name"> {{form.username.label_tag}}</label>
+                        {{form.username}}
+                        <br>
+
+                        <label class="form-label" for="name"> {{form.email.label_tag}}</label>
+                        {{form.email}}
+                        <br>
+
+                        <label class="form-label" for="name">{{form.first_name.label_tag}}</label>
+                        {{form.first_name}}
+                        <br>
+
+                        <label class="form-label" for="name">{{form.last_name.label_tag}}</label>
+                        {{form.last_name}}
+                        <br>
+
+                        <label class="form-label" for="name">{{form.password1.label_tag}}</label>
+                        {{form.password1}}
+                        <br>
+
+                        <label class="form-label" for="name">{{form.password2.label_tag}}</label>
+                        {{form.password2}}
+                        <br>
+
+                    </div>
+                    <p> {{form.messages}}</p>
+                    <div class="card-body">
+                        <input type="submit" class="card-link btn btn-primary" value="signup">
+                        <p class=" mt-2"> Already have an account? <a href="{% url 'login'%}" class="card-link"> Login</a></p>
+
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+{% endblock %}

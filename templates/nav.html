@@ -25,14 +25,14 @@
 </head>
 <body>
 
-    <style>
-        .logo {
-            height: 70px;
-            width: 80px;
-            margin-right: 10px;
-        }
-    </style>
-    
+<style>
+    .logo {
+        height: 70px;
+        width: 80px;
+        margin-right: 10px;
+    }
+</style>
+
 
 <nav class="navbar  navbar-expand-md sticky-top shadow p-3 mb-5 bg-body rounded">
     <div class="container-fluid ">
@@ -54,7 +54,7 @@
                     <a id="sec-2"  class="nav-link light-white " aria-current="page" href="{% url 'view_emails' %}"><span class="Gio-color "> 00. </span> View Emails</a>
                 </li>
 
-                 <li class="nav-item mx-1 text-black">
+                <li class="nav-item mx-1 text-black">
                     <a id="sec-2"  class="nav-link light-white " aria-current="page" href="{% url 'product_stats' %}"><span class="Gio-color "> 01. </span>  Products</a>
                 </li>
 
@@ -74,7 +74,15 @@
                     <a id="sec-4"  class="nav-link light-white" href="{% url 'view_members' %}"><span class="Gio-color "> 05. </span>  Members</a>
                 </li>
 
-              
+                {% if user.is_authenticated %}
+                    <li class="nav-item mx-2 ">
+                        <a id="sec-4"  class="nav-link color-orange" href="{% url 'loggout' %}"><span class="color-orange "> </span>  Logout <i class="fa-solid fa-right-from-bracket color-orange"></i></a>
+                    </li>
+                {% else %}
+
+                {% endif %}
+
+
             </ul>
         </div>
     </div>
